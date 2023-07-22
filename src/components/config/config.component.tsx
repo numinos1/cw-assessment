@@ -1,4 +1,4 @@
-import { useReducer, FormEvent } from 'React';
+import { useReducer, FormEvent } from 'react';
 import { TConfigParams, TOptionMap } from './config.types';
 import { initOptions, reduceOptions } from './config.reducer';
 

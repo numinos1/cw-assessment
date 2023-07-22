@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'React';
+import { useEffect, useReducer } from 'react';
 import { initAssessment, assessmentReducer } from './assessment.reducer';
 import { Guess } from '../guess/guess.component';
 import { Config } from '../config/config.component';
