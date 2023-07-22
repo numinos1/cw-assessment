@@ -48,21 +48,18 @@ export function pickAnswers(
 export function playQuestion(
   state: TAssessmentState
 ): TAssessmentState {
-  if (!state.questions.length) {
-    return state;
+  const question = state.questions[state.index];
+  
+  if (question) {
+    setTimeout(() =>
+      player.play(
+        state.questions[state.index].phrase,
+        state.options
+      ),
+      100
+    );
   }
-  setTimeout(() => 
-    player.play(
-      state.questions[state.index].phrase, 
-      state.options
-    ), 
-    100
-  );
-
-  return {
-    ...state,
-    status: 'play',
-  };
+  return state;
 }
 
 

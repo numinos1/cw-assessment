@@ -63,7 +63,7 @@ export function Config({
             <div className="option-error">{option.inputError}</div>
           </div>
         ))}
-        <button type="submit" className="options-submit">Start Assessment</button>
+        <button type="submit" className="a-button">Start Assessment</button>
       </form>
     </div>
   );

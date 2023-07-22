@@ -7,7 +7,7 @@ export function Results({
   return (
     <div>
       <h2>Results</h2>
-      <button className="repeat" onClick={onRepeat}>Try Again</button>
+      <button className="a-button" onClick={onRepeat}>Try Again</button>
       <pre>{JSON.stringify(questions, null, '  ')}</pre>
     </div>
   );

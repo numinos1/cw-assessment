@@ -6,6 +6,7 @@ import { TOptionMap } from '../config/config.types';
 import { Play } from '../play/play.component';
 import { Results } from '../results/results.component';
 import { Phrase } from '../phrase/phrase.component';
+import { Answer } from '../answer/answer.component';
 import { useKeyboard } from '../../effects/use-keybboard.effect';
 import player from '../../services/player.service';
 
@@ -27,12 +28,12 @@ export function Assessment() {
     dispatch({ type: 'on-guess', answer });
   }
 
-  // function onNext() {
-  //   dispatch({ type: 'on-next' });
-  // }
-
   function onRepeat() {
     dispatch({ type: 'on-repeat' });
+  }
+
+  function onAnswer() {
+    dispatch({ type: 'on-answer' });
   }
 
   // --------------------------------------------------
@@ -45,31 +46,23 @@ export function Assessment() {
     player.stop();
 
     return player.on('*', (type: string, event: any) => {
-      console.log(type, event);
       switch (type) {
-        case 'char:start':
-          return dispatch({
-            type: 'start-play-char',
-            playIndex: event.index
-          });
+        case 'char:start': 
         case 'char:end':
-          return dispatch({
-            type: 'end-play-char'
-          });
         case 'play:stop':
-          return dispatch({
-            type: 'end-play'
-          });
+          dispatch({ type, event });
       }
     });
   }, [dispatch]);
 
-  console.log('STATUS', state.status);
-
   return (
     <div className="assessment">
       {state.status !== 'config' && state.status !== 'results' && (
-        <Phrase question={state.questions[state.index]} playIndex={state.playIndex} />
+        <Phrase
+          question={state.questions[state.index]}
+          playIndex={state.playIndex}
+          status={state.status}
+        />
       )}
       {state.status === 'config' && (
         <Config options={state.options} onConfig={onConfig} />
@@ -81,9 +74,9 @@ export function Assessment() {
         {state.status === 'guess' && (
           <Guess question={state.questions[state.index]} onGuess={onGuess} />
         )}
-        {/* {state.status === 'next' && (
-          <button className="question-next" onClick={onNext}>Next Question</button>
-        )} */}
+        {state.status === 'answer' && (
+          <Answer questions={state.questions} onAnswer={onAnswer} index={state.index}  />
+        )}
         {state.status === 'results' && (
           <Results questions={state.questions} onRepeat={onRepeat} />
         )}

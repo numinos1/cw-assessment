@@ -20,6 +20,12 @@ code {
   margin: 2em 0;
 }
 
+.a-button {
+  margin-top: 1.5em;
+  padding: 0.5em 1em;
+  font-size: 1.1em;
+}
+
 .phrase {
   display: flex;
   justify-content: flex-start;
@@ -42,6 +48,14 @@ code {
       width: .7em;
     }
     &.phrase-slot-play {
+      background-color: hsl(218, 84%, 75%);
+      color: #fff;
+    }
+    &.phrase-slot-right {
+      background-color: #090;
+      color: #fff;
+    }
+    &.phrase-slot-wrong {
       background-color: #900;
       color: #fff;
     }
@@ -99,11 +113,6 @@ code {
         color: #900;
       }
     }
-  }
-  .options-submit {
-    margin-top: 1.5em;
-    padding: 0.5em 1em;
-    font-size: 1.1em;
   }
 }
 

@@ -46,14 +46,16 @@ export function assessmentReducer(
       return guessAnswerAction(state, action.answer);
     case 'on-repeat':
       return returnToConfigAction(state)
+    case 'on-answer':
+      return nextQuestionAction(state)
     case 'press-key': 
       return pressKeyAction(state, action.event);
-    case 'start-play-char': 
-      return startCharAction(state, action.playIndex);
-    case 'end-play-char': 
+    case 'char:start': 
+      return startCharAction(state, action.event);
+    case 'char:end': 
       return endCharAction(state);
-    case 'end-play': 
-      return { ...state, status: 'guess' };
+    case 'play:stop':
+      return endPlayAction(state);
     default:
       return state;
   }
@@ -63,17 +65,25 @@ export function assessmentReducer(
 //                        Actions
 // ---------------------------------------------------------
 
+export function endPlayAction(
+  state: TAssessmentState
+): TAssessmentState {
+  return {
+    ...state,
+    status: 'guess'
+  };
+}
+
 /**
  * Start Play Character
  **/
 export function startCharAction(
   state: TAssessmentState,
-  playIndex: number
+  event: any
 ): TAssessmentState {
-  console.log('playIndex', playIndex);
   return {
     ...state,
-    playIndex: playIndex
+    playIndex: event.index
   };
 }
 
@@ -87,6 +97,23 @@ export function endCharAction(
     ...state,
     playIndex: undefined
   };
+}
+
+export function nextQuestionAction(
+  state: TAssessmentState
+): TAssessmentState {
+  const nextIndex = state.index + 1;
+  const isDone = nextIndex === state.questions.length;
+
+  console.log('here', nextIndex, isDone);
+
+  return playQuestion({
+    ...state,
+    index: nextIndex,
+    status: isDone 
+      ? 'results' 
+      : 'play'
+  });
 }
 
 /**
@@ -119,7 +146,8 @@ export function setOptionsAction(
       answer: '',
       answers: pickAnswers(vocab, phrase),
     })),
-    index: 0
+    index: 0,
+    status: 'play'
   });
 }
 
@@ -150,24 +178,14 @@ export function guessAnswerAction(
   state: TAssessmentState,
   answer: string
 ): TAssessmentState {
-  const nextIndex = state.index + 1;
-  const isDone = nextIndex === state.questions.length;
-
-  const nextState = {
+  return {
     ...state,
+    status: 'answer',
     questions: state.questions.map((question, i) => ({
       ...question,
       answer: i === state.index
         ? answer
         : question.answer
-    })),
-    index: nextIndex,
-    status: isDone 
-      ? 'results' 
-      : state.status
+    }))
   };
-
-  return isDone 
-    ? nextState 
-    : playQuestion(nextState);
 }
