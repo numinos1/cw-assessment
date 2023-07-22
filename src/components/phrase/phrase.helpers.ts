@@ -4,7 +4,7 @@
 export function toSlotClass(
   letter: string,
   index: number,
-  playIndex: number
+  playIndex: number | undefined
 ) {
   const out = ['phrase-slot'];
 
