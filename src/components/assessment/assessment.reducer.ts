@@ -105,8 +105,6 @@ export function nextQuestionAction(
   const nextIndex = state.index + 1;
   const isDone = nextIndex === state.questions.length;
 
-  console.log('here', nextIndex, isDone);
-
   return playQuestion({
     ...state,
     index: nextIndex,
@@ -178,6 +176,8 @@ export function guessAnswerAction(
   state: TAssessmentState,
   answer: string
 ): TAssessmentState {
+  console.log('ANSWER', answer);
+
   return {
     ...state,
     status: 'answer',

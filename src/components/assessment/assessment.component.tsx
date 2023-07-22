@@ -7,6 +7,7 @@ import { Play } from '../play/play.component';
 import { Results } from '../results/results.component';
 import { Phrase } from '../phrase/phrase.component';
 import { Answer } from '../answer/answer.component';
+import { Speech } from '../speech/speech.component';
 import { useKeyboard } from '../../effects/use-keybboard.effect';
 import player from '../../services/player.service';
 
@@ -25,6 +26,7 @@ export function Assessment() {
   }
 
   function onGuess(answer: string) {
+    console.log('guess', answer);
     dispatch({ type: 'on-guess', answer });
   }
 
@@ -70,6 +72,9 @@ export function Assessment() {
       <div className="assessment-body">
         {state.status === 'play' && (
           <Play />
+        )}
+        {state.status === 'guess' && (
+          <Speech question={state.questions[state.index]} onGuess={onGuess} />
         )}
         {state.status === 'guess' && (
           <Guess question={state.questions[state.index]} onGuess={onGuess} />

@@ -1,4 +1,5 @@
 import { TResultsParams } from "./results.types";
+import { TQuestion } from "../assessment/assessment.types";
 
 export function Results({
   questions,
@@ -8,12 +9,13 @@ export function Results({
     <div className="results">
       <h2>Results</h2>
       {questions.map((question, index) => (
-        <div className="results-answer">
+        <div className="results-answer" key={index}>
           {index + 1}. &nbsp;
           <div className="results-letters">
             {question.phrase.split('').map((letter, i) => (
               <span
-                className={question.answer[i].toUpperCase() === letter.toUpperCase()
+                key={i}
+                className={toLetterClass(question, letter, i)
                   ? 'results-char-right'
                   : 'results-char-wrong'
                 }
@@ -27,4 +29,17 @@ export function Results({
       <button className="a-button" onClick={onRepeat}>Try Again</button>
     </div>
   );
+}
+
+function toLetterClass(
+  question: TQuestion,
+  source: string,
+  index: number
+): string {
+  const letter = question.answer
+    .substring(index, 1) || '';
+
+  return (letter.toUpperCase() === source.toUpperCase())
+    ? 'results-char-right'
+    : 'results-char-wrong';
 }
