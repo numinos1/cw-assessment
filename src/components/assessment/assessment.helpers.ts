@@ -35,7 +35,7 @@ export function pickAnswers(
 
   for (let i = 0; answers.size < 5 && i < 100; ++i) {
     const answer = wordLists.map(matches => 
-      randomEntry(matches, i < 5 ? 3 : 10)
+      randomEntry(matches, i < 5 ? 4 : 10)
     )
     answers.add(answer.join(' '));
   }

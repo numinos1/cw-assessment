@@ -26,6 +26,25 @@ code {
   font-size: 1.1em;
 }
 
+.results {
+  > .results-answer {
+    font-size: 1.4em;
+
+    > .results-letters {
+      display: inline;
+
+      > span {
+        &.results-char-right {
+          color: #090;
+        }
+        &.results-char-wrong {
+          color: #900;
+        }
+      }
+    }
+  }
+}
+
 .phrase {
   display: flex;
   justify-content: flex-start;
