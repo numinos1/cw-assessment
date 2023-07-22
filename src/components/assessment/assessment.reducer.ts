@@ -70,6 +70,7 @@ export function startCharAction(
   state: TAssessmentState,
   playIndex: number
 ): TAssessmentState {
+  console.log('playIndex', playIndex);
   return {
     ...state,
     playIndex: playIndex

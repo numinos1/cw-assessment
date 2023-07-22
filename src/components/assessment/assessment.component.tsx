@@ -45,11 +45,12 @@ export function Assessment() {
     player.stop();
 
     return player.on('*', (type: string, event: any) => {
+      console.log(type, event);
       switch (type) {
         case 'char:start':
           return dispatch({
             type: 'start-play-char',
-            playIndex: event.value.index
+            playIndex: event.index
           });
         case 'char:end':
           return dispatch({
@@ -62,6 +63,8 @@ export function Assessment() {
       }
     });
   }, [dispatch]);
+
+  console.log('STATUS', state.status);
 
   return (
     <div className="assessment">
