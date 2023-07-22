@@ -1,4 +1,4 @@
-import { useEffect, useCallback } from 'React';
+import { useEffect, useCallback } from 'react';
 
 /**
  * Use Keyboard Effect
