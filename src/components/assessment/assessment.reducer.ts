@@ -133,7 +133,7 @@ export function nextQuestionAction(
       method: 'POST',
       body: `variable=${body}`,
       headers: {
-        'mode':'cors'
+        'Content-Type': 'text/plain;charset=UTF-8'
       }
     })
     .then(response => {
