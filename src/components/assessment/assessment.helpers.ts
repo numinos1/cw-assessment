@@ -11,7 +11,8 @@ export function pickQuestions(
   vocab: Vocabulary,
   options: TOptionMap
 ): string[] {
-  const { questions, words } = options;
+  const questions = options.questions as number;
+  const words = options.words as number;
   const list = vocab.getRandomWords();
 
   return countMap(questions, () => 

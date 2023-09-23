@@ -1,4 +1,4 @@
-import { getStore } from '../../utils/local-storage';
+//import { getStore } from '../../utils/local-storage';
 import { TOptionMap } from '../config/config.types';
 import { TAssessmentState, TAction, TQuestion } from './assessment.types';
 import { WORD_LIST2 } from '../../data/words';
