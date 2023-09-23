@@ -1,20 +1,18 @@
 export interface TOption {
-  inputLabel: string;
-  inputName: string;
-  inputValue: number;
-  inputError: string;
-  defaultValue: number;
-  minValue: number;
-  maxValue: number;
+  label: string;
+  name: string;
+  type: Function;
+  value: string | number;
+  error: string;
 }
 
 export interface TOptValue {
   name: string;
-  value: number;
+  value: string;
 }
 
 export interface TStorageOptions {
-  [char: string]: number;
+  [char: string]: number | string;
 }
 
 export type TAction =
@@ -25,4 +23,4 @@ export interface TConfigParams {
   onConfig: (options: TOptionMap) => void;
 }
 
-export type TOptionMap = Record<string, number>;
+export type TOptionMap = Record<string, number | string>;

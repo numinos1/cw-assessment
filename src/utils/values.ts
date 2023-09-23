@@ -1,3 +1,5 @@
+const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
 /**
  * Random number from zero < size
  **/
@@ -52,4 +54,19 @@ export function randomEntry<Type>(
     limit = list.length;
   }
   return list[rand(limit)];
+}
+
+/**
+ * Create a random Id
+ **/
+export function createId(length: number) {
+  const charactersLength = CHARSET.length;
+  let result = '';
+
+  for (let i = 0; i < length; i++ ) {
+    result += CHARSET.charAt(
+      Math.floor(Math.random() * charactersLength)
+    );
+  }
+  return result;
 }

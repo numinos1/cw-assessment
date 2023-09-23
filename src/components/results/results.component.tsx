@@ -1,45 +1,31 @@
 import { TResultsParams } from "./results.types";
-import { TQuestion } from "../assessment/assessment.types";
+import { TResults } from "../assessment/assessment.types";
 
 export function Results({
-  questions,
+  results,
   onRepeat
 }: TResultsParams) {
   return (
     <div className="results">
-      <h2>Results</h2>
-      {questions.map((question, index) => (
-        <div className="results-answer" key={index}>
-          {index + 1}. &nbsp;
-          <div className="results-letters">
-            {question.phrase.split('').map((letter, i) => (
-              <span
-                key={i}
-                className={toLetterClass(question, letter, i)
-                  ? 'results-char-right'
-                  : 'results-char-wrong'
-                }
-              >
-                {letter}
-              </span>
-            ))}
-          </div>
-        </div>
-      ))}
+      <h2>{toHeader(results)}</h2>
+      <div className="score">{results.score}%</div>
       <button className="a-button" onClick={onRepeat}>Try Again</button>
     </div>
   );
 }
 
-function toLetterClass(
-  question: TQuestion,
-  source: string,
-  index: number
-): string {
-  const letter = question.answer
-    .substring(index, 1) || '';
-
-  return (letter.toUpperCase() === source.toUpperCase())
-    ? 'results-char-right'
-    : 'results-char-wrong';
+function toHeader({ right, total, score }: TResults) {
+  if (right === total) {
+    return "Congratulations! you got a perfect score.";
+  }
+  if (total - 1 === right) {
+    return "Good job! you only missed one answer.";
+  }
+  if (score >= 80) {
+    return "Well done. You only missed a couple of answers.";
+  }
+  if (score > 50) {
+    return "You got more than half correct.";
+  }
+  return "You got less than half correct";
 }

@@ -20,7 +20,7 @@ export function Assessment() {
     null,
     initAssessment
   );
-  
+
   function onConfig(options: TOptionMap) {
     dispatch({ type: 'on-config', options });
   }
@@ -73,9 +73,9 @@ export function Assessment() {
         {state.status === 'play' && (
           <Play />
         )}
-        {state.status === 'guess' && (
+        {/* {state.status === 'guess' && (
           <Speech question={state.questions[state.index]} onGuess={onGuess} />
-        )}
+        )} */}
         {state.status === 'guess' && (
           <Guess question={state.questions[state.index]} onGuess={onGuess} />
         )}
@@ -83,7 +83,7 @@ export function Assessment() {
           <Answer questions={state.questions} onAnswer={onAnswer} index={state.index}  />
         )}
         {state.status === 'results' && (
-          <Results questions={state.questions} onRepeat={onRepeat} />
+          <Results results={state.results} onRepeat={onRepeat} />
         )}
       </div>
     </div>

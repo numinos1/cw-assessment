@@ -1,10 +1,13 @@
 import { getStore } from '../../utils/local-storage';
 import { TOptionMap } from '../config/config.types';
-import { TAssessmentState, TAction } from './assessment.types';
+import { TAssessmentState, TAction, TQuestion } from './assessment.types';
 import { WORD_LIST2 } from '../../data/words';
 import { Vocabulary } from '../../utils/vocabulary';
 import { setStore } from '../../utils/local-storage';
+import { createId } from '../../utils/values';
 import { pickQuestions, pickAnswers, playQuestion } from './assessment.helpers';
+
+const CWOPS_URL = 'https://cwa.cwops.org/wp-content/uploads/testapi.php';
 
 // ---------------------------------------------------------
 //                       Initialize
@@ -15,7 +18,8 @@ import { pickQuestions, pickAnswers, playQuestion } from './assessment.helpers';
  **/
 export function initAssessment(): TAssessmentState {
   return {
-    options: getStore<TOptionMap>('options') || {},
+    id: createId(11),
+    options: {},
     questions: [],
     index: 0,
     status: 'config', 
@@ -24,6 +28,11 @@ export function initAssessment(): TAssessmentState {
       // guess
       // next -> play | results
       // results
+    results: {
+      total: 0,
+      right: 0,
+      score: 0
+    },
     playIndex: undefined
   };
 }
@@ -104,14 +113,58 @@ export function nextQuestionAction(
 ): TAssessmentState {
   const nextIndex = state.index + 1;
   const isDone = nextIndex === state.questions.length;
+  const results = toResults(state.questions);
+  
+  if (isDone) {
+    const payload = {
+      cs: state.options.callsign,
+      score: results.score,
+      level: 'Fundamental'
+    };
+    const params = Object
+      .entries(payload)
+      .map(([key, val]) => `${key}=${val}`)
+      .join(',');
+    const body = btoa(params);
+
+    console.log('params', params, body);
+
+    fetch(CWOPS_URL, {
+      method: 'POST',
+      body: `variable=${body}`,
+      headers: {
+        'mode':'cors'
+      }
+    })
+    .then(response => {
+      console.log('response', response);
+    });
+  }
 
   return playQuestion({
     ...state,
     index: nextIndex,
     status: isDone 
       ? 'results' 
-      : 'play'
+      : 'play',
+    results: results
   });
+}
+
+/**
+ * Calculate Results
+ **/
+function toResults(questions: TQuestion[]) {
+  const total = questions.length;
+  const right = questions.reduce((count, question) =>
+    question.phrase === question.answer
+      ? count + 1
+      : count,
+    0
+  );
+  const score = Math.round((right / total) * 100);
+
+  return { total, right, score };
 }
 
 /**
@@ -122,6 +175,7 @@ export function returnToConfigAction(
 ): TAssessmentState {
   return {
     ...state,
+    id: createId(11),
     status: 'config'
   };
 }
@@ -133,7 +187,7 @@ export function setOptionsAction(
   state: TAssessmentState,
   options: TOptionMap
 ): TAssessmentState {
-  const vocab = new Vocabulary(WORD_LIST2, options.characters);
+  const vocab = new Vocabulary(WORD_LIST2, options.characters as number);
   setStore('options', options);
 
   return playQuestion({

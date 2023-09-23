@@ -1,7 +1,7 @@
-import { TQuestion } from "../assessment/assessment.types";
+import { TResults } from "../assessment/assessment.types";
 import { MouseEventHandler } from 'react';
 
 export interface TResultsParams {
-  questions: TQuestion[];
+  results: TResults;
   onRepeat: MouseEventHandler<HTMLButtonElement>
 }

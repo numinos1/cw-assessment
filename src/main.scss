@@ -27,21 +27,13 @@ code {
 }
 
 .results {
-  > .results-answer {
-    font-size: 1.4em;
-
-    > .results-letters {
-      display: inline;
-
-      > span {
-        &.results-char-right {
-          color: #090;
-        }
-        &.results-char-wrong {
-          color: #900;
-        }
-      }
-    }
+  h2 {
+    font-size: 1.3em;
+  }
+  .score {
+    font-size: 3em;
+    font-weight: bold;
+    color: #090;
   }
 }
 
