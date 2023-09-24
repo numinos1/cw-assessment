@@ -131,9 +131,9 @@ export function nextQuestionAction(
 
     fetch(CWOPS_URL, {
       method: 'POST',
-      body: `variable=${body}`,
+      body: JSON.stringify({ variable: body }),
       headers: {
-        'Content-Type': 'text/plain;charset=UTF-8'
+        'Content-Type': 'application/json'
       }
     })
     .then(response => {
