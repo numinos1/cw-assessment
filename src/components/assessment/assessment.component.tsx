@@ -38,6 +38,10 @@ export function Assessment() {
     dispatch({ type: 'on-answer' });
   }
 
+  function onClose() {
+    window.close();
+  }
+
   // --------------------------------------------------
   useKeyboard((event: KeyboardEvent) => {
     dispatch({ type: 'press-key', event })
@@ -80,7 +84,7 @@ export function Assessment() {
           <Guess question={state.questions[state.index]} onGuess={onGuess} />
         )}
         {state.status === 'answer' && (
-          <Answer questions={state.questions} onAnswer={onAnswer} index={state.index}  />
+          <Answer questions={state.questions} onAnswer={onAnswer} onClose={onClose} index={state.index}  />
         )}
         {state.status === 'results' && (
           <Results results={state.results} onRepeat={onRepeat} />

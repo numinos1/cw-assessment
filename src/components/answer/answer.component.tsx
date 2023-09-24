@@ -3,6 +3,7 @@ import { TAnswerParams } from "./answer.types";
 export function Answer({
   questions,
   onAnswer,
+  onClose,
   index
 }: TAnswerParams) {
   return (
@@ -12,6 +13,10 @@ export function Answer({
           ? 'See Results'
           : 'Next Question'
         }
+      </button>
+      <br/>
+      <button className="a-button" onClick={onClose}>
+        Quit and Return to CWOps
       </button>
     </div>
   );
