@@ -129,12 +129,12 @@ export function nextQuestionAction(
 
     console.log('params', params, body);
 
+    const formData = new FormData();
+    formData.append('variable', body);
+    
     fetch(CWOPS_URL, {
       method: 'POST',
-      body: JSON.stringify({ variable: body }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      body: formData
     })
     .then(response => {
       console.log('response', response);
