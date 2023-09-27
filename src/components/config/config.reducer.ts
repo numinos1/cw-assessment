@@ -1,5 +1,6 @@
 import { TAction, TStorageOptions, TOptionMap, TOptValue, TOption } from './config.types';
-import { getStore } from '../../utils/local-storage';
+import { MODES } from '../../data/modes';
+//import { getStore } from '../../utils/local-storage';
 
 // ---------------------------------------------------------
 //                       Initialize
@@ -19,51 +20,91 @@ export function initOptions(
         name: 'callsign',
         type: CallsignType(),
         value: '',
-        error: ''
+        error: '',
+        isHidden: false
       },
       {
         label: 'Character Speed',
         name: 'wpm',
-        type: NumberType(15, 40),
+        type: NumberType(15, 100),
         value: 30,
-        error: ''
+        error: '',
+        isHidden: false
       },
       {
         label: 'Effective Speed',
         name: 'eff',
-        type: NumberType(4, 40),
+        type: NumberType(4, 100),
         value: 30,
-        error: ''
+        error: '',
+        isHidden: false
       },
       {
         label: 'Tone Frequency',
         name: 'freq',
-        type: NumberType(400, 800),
+        type: StringValues(400, 800),
         value: 600,
-        error: ''
+        error: '',
+        isHidden: false
       },
       {
         label: 'Question Count',
         name: 'questions',
         type: NumberType(2, 20),
         value: 10,
-        error: ''
+        error: '',
+        isHidden: false
       },
       {
         label: 'Word Count',
         name: 'words',
         type: NumberType(1, 5),
         value: 2,
-        error: ''
+        error: '',
+        isHidden: false
       },
       {
         label: 'Max Word Size',
         name: 'characters',
         type: NumberType(2, 5),
         value: 3,
-        error: ''
+        error: '',
+        isHidden: false
+      },
+      {
+        label: 'Level',
+        name: 'level',
+        type: StringType(),
+        value: '',
+        error: '',
+        isHidden: true
+      },
+      {
+        label: 'Mode',
+        name: 'mode',
+        type: StringType(),
+        value: '',
+        error: '',
+        isHidden: true
       }
     ]);
+}
+
+/**
+ * String Type
+ **/
+function StringType(): Function {
+  return (initValue: any) => {
+    let error = '';
+    let value = '';
+
+    if (initValue != null) {
+      value = `${initValue}`;
+    }
+    value.trim();
+
+    return { value, error };
+  }
 }
 
 /**
@@ -79,7 +120,10 @@ function CallsignType(): Function {
     }
     value = value.trim().toUpperCase();
 
-    if (!/^[A-Z0-9]{3,8}$/.test(value)) {
+    // All call signs: [a-zA-Z0-9]{1,3}[0-9][a-zA-Z0-9]{0,3}[a-zA-Z]
+    // Non-US call signs: \b(?!K)(?!k)(?!N)(?!n)(?!W)(?!w)(?!A[A-L])(?!a[a-l])[a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[0-9][a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?\b
+    // US call signs: [AKNWaknw][a-zA-Z]{0,2}[0-9][a-zA-Z]{1,3}
+    if (!/^[A-Z0-9]{1,3}[0-9][A-Z0-9]{0,3}[A-Z]\/?[A-Z0-9]{0,5}$/.test(value)) {
       error = 'Invalid Callsign';
     }
     return { value, error };
@@ -114,30 +158,59 @@ function NumberType(min: number, max: number): Function {
 }
 
 /**
+ * String Number Value(s)
+ **/
+function StringValues(min: number, max: number): Function {
+  return (initValue: any) => {
+    let error = '';
+    let value = '';
+
+    if (initValue != null) {
+      value = `${initValue}`;
+    }
+    value = value.split(/[,| ]+/).map(strVal => {
+      if (!strVal) {
+        return 0;
+      }
+      const intVal = parseInt(strVal, 10);
+
+      if (isNaN(intVal) || intVal < min || intVal > max) {
+        error = `value(s) must be between ${min} - ${max}`;
+        return 0;
+      }
+      return intVal;
+    })
+    .filter(val => val)
+    .join(',');
+    
+    if (!value) {
+      error = `value(s) must be between ${min} - ${max}`;
+    }
+    return { value, error };
+  }
+}
+
+/**
  * Set Value Defaults:
- * 
- * 1. Use current value 
- * 2. Or get value from the URL parameters
- * 3. Or get value from the HTML attributes
- * 4. Or get value from local storage
- * 5. Or use default schema value
  **/
 function initValues(
   values: TOptionMap,
   state: TOption[]
 ): TOption[] {
-  const storeValues = getStore<TOptionMap>('options') || {};
+ //// const storeValues = getStore<TOptionMap>('options') || {};
   const htmlValues = getHtmlValues("#cw-assessment");
   const urlValues = getUrlValues();
+  const modeValues = getModeValues(values, htmlValues, urlValues);
 
   return state.map(option => {
     const { name } = option;
-    let value = values[name];
+    let value = modeValues[name]
+      || values[name];
 
     if (value == null) {
-      value = urlValues.get(name)
-        || htmlValues[name]
-        || storeValues[name]
+      value = urlValues.get(name === 'wpm' ? 'cpm' : name)
+        || htmlValues[name === 'wpm' ? 'cpm' : name]
+       // || storeValues[name]
         || option.value;
     }
     return {
@@ -145,6 +218,15 @@ function initValues(
       ...option.type(value),
     };
   });
+}
+
+/**
+ * Get the Mode Values
+ **/
+function getModeValues(values: TOptionMap, htmlValues: DOMStringMap, urlValues: URLSearchParams): any {
+  const valuesMode = values.mode != null ? `${values.mode}` : '';
+  const mode = (valuesMode || urlValues.get('mode') || htmlValues.mode || '').toLowerCase();
+  return MODES[mode] || {};
 }
 
 /**
@@ -188,9 +270,11 @@ function setValue(
 
   return state.map(option => {
     if (option.name === name) {
+      const { error } = option.type(value);
       return {
         ...option,
-        ...option.type(value)
+        value,
+        error
       };
     }
     return option;

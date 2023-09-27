@@ -42,6 +42,10 @@ export function Assessment() {
     window.close();
   }
 
+  function onMode(mode: string) {
+    dispatch({ type: 'on-mode', mode });
+  }
+
   // --------------------------------------------------
   useKeyboard((event: KeyboardEvent) => {
     dispatch({ type: 'press-key', event })
@@ -71,7 +75,10 @@ export function Assessment() {
         />
       )}
       {state.status === 'config' && (
-        <Config options={state.options} onConfig={onConfig} />
+        <Config
+          options={state.options}
+          onConfig={onConfig}
+        />
       )}
       <div className="assessment-body">
         {state.status === 'play' && (
@@ -81,13 +88,26 @@ export function Assessment() {
           <Speech question={state.questions[state.index]} onGuess={onGuess} />
         )} */}
         {state.status === 'guess' && (
-          <Guess question={state.questions[state.index]} onGuess={onGuess} />
+          <Guess
+            question={state.questions[state.index]}
+            onGuess={onGuess}
+          />
         )}
         {state.status === 'answer' && (
-          <Answer questions={state.questions} onAnswer={onAnswer} onClose={onClose} index={state.index}  />
+          <Answer
+            questions={state.questions}
+            onAnswer={onAnswer}
+            onClose={onClose}
+            index={state.index}
+          />
         )}
         {state.status === 'results' && (
-          <Results results={state.results} onRepeat={onRepeat} />
+          <Results
+            assessment={state}
+            onRepeat={onRepeat}
+            onMode={onMode}
+            onClose={onClose}
+          />
         )}
       </div>
     </div>

@@ -1,13 +1,11 @@
 //import { getStore } from '../../utils/local-storage';
 import { TOptionMap } from '../config/config.types';
-import { TAssessmentState, TAction, TQuestion } from './assessment.types';
+import { TAssessmentState, TAction } from './assessment.types';
 import { WORD_LIST2 } from '../../data/words';
 import { Vocabulary } from '../../utils/vocabulary';
 import { setStore } from '../../utils/local-storage';
 import { createId } from '../../utils/values';
 import { pickQuestions, pickAnswers, playQuestion } from './assessment.helpers';
-
-const CWOPS_URL = 'https://cwa.cwops.org/wp-content/uploads/testapi.php';
 
 // ---------------------------------------------------------
 //                       Initialize
@@ -28,11 +26,6 @@ export function initAssessment(): TAssessmentState {
       // guess
       // next -> play | results
       // results
-    results: {
-      total: 0,
-      right: 0,
-      score: 0
-    },
     playIndex: undefined
   };
 }
@@ -57,6 +50,8 @@ export function assessmentReducer(
       return returnToConfigAction(state)
     case 'on-answer':
       return nextQuestionAction(state)
+    case 'on-mode':
+      return setNewMode(state, action.mode);
     case 'press-key': 
       return pressKeyAction(state, action.event);
     case 'char:start': 
@@ -113,58 +108,14 @@ export function nextQuestionAction(
 ): TAssessmentState {
   const nextIndex = state.index + 1;
   const isDone = nextIndex === state.questions.length;
-  const results = toResults(state.questions);
-  
-  if (isDone) {
-    const payload = {
-      cs: state.options.callsign,
-      score: results.score,
-      level: 'Fundamental'
-    };
-    const params = Object
-      .entries(payload)
-      .map(([key, val]) => `${key}=${val}`)
-      .join(',');
-    const body = btoa(params);
-
-    console.log('params', params, body);
-
-    const formData = new FormData();
-    formData.append('variable', body);
-    
-    fetch(CWOPS_URL, {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => {
-      console.log('response', response);
-    });
-  }
-
+ 
   return playQuestion({
     ...state,
     index: nextIndex,
     status: isDone 
       ? 'results' 
-      : 'play',
-    results: results
+      : 'play'
   });
-}
-
-/**
- * Calculate Results
- **/
-function toResults(questions: TQuestion[]) {
-  const total = questions.length;
-  const right = questions.reduce((count, question) =>
-    question.phrase === question.answer
-      ? count + 1
-      : count,
-    0
-  );
-  const score = Math.round((right / total) * 100);
-
-  return { total, right, score };
 }
 
 /**
@@ -178,6 +129,24 @@ export function returnToConfigAction(
     id: createId(11),
     status: 'config'
   };
+}
+
+/**
+ * Set New Mode and Return to Config
+ **/
+export function setNewMode(
+  state: TAssessmentState,
+  mode: string
+) {
+  return {
+    ...state,
+    id: createId(11),
+    status: 'config',
+    options: {
+      ...state.options,
+      mode
+    }
+  }
 }
 
 /**
@@ -197,6 +166,7 @@ export function setOptionsAction(
       phrase: phrase,
       answer: '',
       answers: pickAnswers(vocab, phrase),
+      points: 0
     })),
     index: 0,
     status: 'play'
@@ -230,8 +200,6 @@ export function guessAnswerAction(
   state: TAssessmentState,
   answer: string
 ): TAssessmentState {
-  console.log('ANSWER', answer);
-
   return {
     ...state,
     status: 'answer',
@@ -239,7 +207,25 @@ export function guessAnswerAction(
       ...question,
       answer: i === state.index
         ? answer
-        : question.answer
+        : question.answer,
+      points: i === state.index
+        ? toPoints(question.phrase, answer)
+        : question.points
     }))
   };
+}
+
+/**
+ * Calculate points for a single answer
+ **/
+function toPoints(phrase: string, answer: string) {
+  const phraseWords = phrase.split(' ');
+  const answerWords = answer.split(' ');
+  
+  let points = 0;
+
+  for (let i = 0; i < phraseWords.length; ++i) {
+    if (phraseWords[i] === answerWords[i]) points++;
+  }
+  return points;
 }

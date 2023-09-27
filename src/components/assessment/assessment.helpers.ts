@@ -52,9 +52,18 @@ export function playQuestion(
   const question = state.questions[state.index];
   
   if (question) {
+    const phrase = state.questions[state.index].phrase;
+    let freq = `${state.options.freq}`;
+
+    if (freq.indexOf(',') >= 0) {
+      freq = freq.replace(/,/gm, ' '); 
+      freq = `[pick from:"${freq}"]`;
+    }
+    // TODO - [set freq:x] is needed to fix a bug in the player.
+    // The options.freq doesn't take effect on the first run.
     setTimeout(() =>
       player.play(
-        state.questions[state.index].phrase,
+        `[set freq:${freq}]${phrase}`,
         state.options
       ),
       100

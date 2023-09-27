@@ -37,6 +37,14 @@ code {
   }
 }
 
+.buttons {
+  display: flex;
+
+  > button {
+    margin-right: 1em;
+  }
+}
+
 .phrase {
   display: flex;
   justify-content: flex-start;
@@ -93,7 +101,7 @@ code {
 }
 
 .options-form {
-  max-width: 300px;
+  max-width: 350px;
 
   .options-input {
     font-size: 1.1em;
@@ -106,7 +114,7 @@ code {
     }
     > input {
       display: block;
-      width: 50px;
+      width: 120px;
       margin-left: 150px;
       font-size: 1.1em;
     }

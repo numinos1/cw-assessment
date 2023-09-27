@@ -20,6 +20,7 @@ export class Vocabulary {
     this.words = words
       .replace(/\s/g, '')
       .split(',')
+      .map(word => word.toLowerCase())
       .filter(word => 
         word.length <= size
       );

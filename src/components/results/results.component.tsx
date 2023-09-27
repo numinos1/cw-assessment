@@ -1,31 +1,33 @@
+import { useEffect } from 'react';
 import { TResultsParams } from "./results.types";
-import { TResults } from "../assessment/assessment.types";
+import { toResults, sendResults, toHeader, toNextMode } from './results.helpers';
 
+/**
+ * Results Component
+ **/
 export function Results({
-  results,
-  onRepeat
+  assessment,
+  onRepeat,
+  onClose,
+  onMode
 }: TResultsParams) {
+  const results = toResults(assessment.questions);
+  const nextMode = toNextMode(assessment, results);
+
+  useEffect(() =>
+    sendResults(assessment),
+    [assessment]
+  );
+
   return (
     <div className="results">
       <h2>{toHeader(results)}</h2>
       <div className="score">{results.score}%</div>
-      <button className="a-button" onClick={onRepeat}>Try Again</button>
+      <div className="buttons">
+        <button className="a-button" onClick={onRepeat}>Try Again</button>
+        {nextMode && <button className="a-button" onClick={() => onMode(nextMode)}>Try {nextMode}</button>}
+        <button className="a-button" onClick={onClose}>Return to CWOps</button>
+      </div>
     </div>
   );
-}
-
-function toHeader({ right, total, score }: TResults) {
-  if (right === total) {
-    return "Congratulations! you got a perfect score.";
-  }
-  if (total - 1 === right) {
-    return "Good job! you only missed one answer.";
-  }
-  if (score >= 80) {
-    return "Well done. You only missed a couple of answers.";
-  }
-  if (score > 50) {
-    return "You got more than half correct.";
-  }
-  return "You got less than half correct";
 }

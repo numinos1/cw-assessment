@@ -7,16 +7,15 @@ export function Answer({
   index
 }: TAnswerParams) {
   return (
-    <div>
+    <div className="buttons">
       <button className="a-button" onClick={onAnswer}>
         {(questions.length - 1) === index
           ? 'See Results'
           : 'Next Question'
         }
       </button>
-      <br/>
       <button className="a-button" onClick={onClose}>
-        Quit and Return to CWOps
+        Quit
       </button>
     </div>
   );

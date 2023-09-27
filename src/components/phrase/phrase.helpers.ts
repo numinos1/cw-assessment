@@ -24,7 +24,8 @@ export function toSlotClass(
         out.push('phrase-slot-wrong');
       }
     } 
-    else if (index === playIndex) {
+    // TODO ( -1) hack to offset for [set freq:x] prefix
+    else if (playIndex != null && index === (playIndex - 1)) {
       out.push('phrase-slot-play');
     }
   }

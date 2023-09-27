@@ -6,7 +6,6 @@ export interface TAssessmentState {
   questions: TQuestion[];
   index: number;
   status: string;
-  results: TResults;
   playIndex: number | undefined;
 }
 
@@ -14,12 +13,7 @@ export interface TQuestion {
   phrase: string;
   answer: string;
   answers: string[];
-}
-
-export interface TResults {
-  total: number;
-  right: number;
-  score: number;
+  points: number;
 }
 
 export type TAction =
@@ -27,6 +21,7 @@ export type TAction =
   | { type: 'on-guess', answer: any }
   | { type: 'on-repeat' }
   | { type: 'on-answer' }
+  | { type: 'on-mode', mode: string }
   | { type: 'press-key', event: KeyboardEvent }
   | { type: 'char:start', event: any }
   | { type: 'char:end', event: any }

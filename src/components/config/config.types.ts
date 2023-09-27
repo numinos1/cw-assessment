@@ -4,6 +4,7 @@ export interface TOption {
   type: Function;
   value: string | number;
   error: string;
+  isHidden: boolean;
 }
 
 export interface TOptValue {
