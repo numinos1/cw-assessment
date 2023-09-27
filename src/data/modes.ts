@@ -12,7 +12,7 @@ export const MODES: Record<string, TModeData> = {
   beginner: {
     level: 'Beginner',
     cpm: 15,
-    eff: 15,
+    eff: 4,
     freq: "500,550,600,650,700",
     questions: 5,
     words: 2,
@@ -20,8 +20,8 @@ export const MODES: Record<string, TModeData> = {
   },
   fundamental: {
     level: 'Fundamental',
-    cpm: 20,
-    eff: 20,
+    cpm: 25,
+    eff: 6,
     freq: "500,550,600,650,700",
     questions: 5,
     words: 2,
@@ -30,7 +30,7 @@ export const MODES: Record<string, TModeData> = {
   intermediate: {
     level: 'Intermediate',
     cpm: 25,
-    eff: 25,
+    eff: 10,
     freq: "500,550,600,650,700",
     questions: 5,
     words: 2,
@@ -38,8 +38,8 @@ export const MODES: Record<string, TModeData> = {
   },
   advanced: {
     level: 'Advanced',
-    cpm: 30,
-    eff: 30,
+    cpm: 25,
+    eff: 20,
     freq: "500,550,600,650,700",
     questions: 5,
     words: 2,
