@@ -1,8 +1,11 @@
 import { TGuessParams } from "./guess.types";
+import { TQuestion } from "../assessment/assessment.types";
+
 /**
  * Guess Component
  **/
 export function Guess({
+  status,
   question,
   onGuess
 }: TGuessParams) {
@@ -10,9 +13,34 @@ export function Guess({
     <div className="question">
       <div className="question-answers">
         {question.answers.map(answer => (
-          <button key={answer} onClick={() => onGuess(answer)}>{answer}</button>
+          <button
+            key={answer}
+            onClick={() => onGuess(answer)}
+            className={toStyle(status, question, answer)}
+          >
+            {answer}
+          </button>
         ))}
       </div>
     </div>
   );
+}
+
+/**
+ * To Style
+ **/
+function toStyle(
+  status: string,
+  question: TQuestion,
+  answer: string
+) {
+  if (status === 'guess') {
+    return '';
+  }
+  if (question.answer !== answer) {
+    return 'question-ignore';
+  }
+  return question.phrase === answer
+    ? 'question-right'
+    : 'question-wrong';
 }

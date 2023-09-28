@@ -86,8 +86,9 @@ export function Assessment() {
         {/* {state.status === 'guess' && (
           <Speech question={state.questions[state.index]} onGuess={onGuess} />
         )} */}
-        {state.status === 'guess' && (
+        {(state.status === 'guess' || state.status === 'answer') && (
           <Guess
+            status={state.status}
             question={state.questions[state.index]}
             onGuess={onGuess}
           />
