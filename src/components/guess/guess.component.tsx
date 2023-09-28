@@ -40,7 +40,11 @@ function toStyle(
   if (question.answer !== answer) {
     return 'question-ignore';
   }
-  return question.phrase === answer
-    ? 'question-right'
-    : 'question-wrong';
+  if (question.phrase === answer) {
+    return 'question-right';
+  }
+  if (!question.points) {
+    return 'question-wrong';
+  }
+  return 'question-half';
 }

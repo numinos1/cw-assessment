@@ -99,20 +99,25 @@ code {
       margin: .5em 0;
       border-radius: 8px;
       border: 1px solid #bbb;
+      letter-spacing: 0.1em;
 
       &.question-right {
-        // background-color: #090;
-        // border: 1px solid #090;
+        background-color: #efe;
+        border: 1px solid #090;
         // color: #fff;
       }
       &.question-wrong {
-        // background-color: #900;
-        // border: 1px solid #900;
+        background-color: #fee;
+        border: 1px solid #900;
         // color: #fff;
+      }
+      &.question-half {
+        background-color: #fffed9;
+        border: 1px solid #ddd799;
       }
       &.question-ignore {
         //display: none;
-        transition: 0.5s;
+        transition: 0.2s;
         background-color: transparent;
         color: #ddd;
         border: 1px solid #eee;
