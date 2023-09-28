@@ -21,12 +21,11 @@ export function Assessment() {
     initAssessment
   );
 
-  function onConfig(options: TOptionMap) {
-    dispatch({ type: 'on-config', options });
+  function onStart(options: TOptionMap) {
+    dispatch({ type: 'on-start', options });
   }
 
   function onGuess(answer: string) {
-    console.log('guess', answer);
     dispatch({ type: 'on-guess', answer });
   }
 
@@ -77,7 +76,7 @@ export function Assessment() {
       {state.status === 'config' && (
         <Config
           options={state.options}
-          onConfig={onConfig}
+          onStart={onStart}
         />
       )}
       <div className="assessment-body">

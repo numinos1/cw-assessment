@@ -21,7 +21,7 @@ export type TAction =
 
 export interface TConfigParams {
   options: TStorageOptions;
-  onConfig: (options: TOptionMap) => void;
+  onStart: (options: TOptionMap) => void;
 }
 
 export type TOptionMap = Record<string, number | string>;

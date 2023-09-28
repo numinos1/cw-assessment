@@ -20,13 +20,14 @@ export function initAssessment(): TAssessmentState {
     options: {},
     questions: [],
     index: 0,
+    tryCount: 0,
     status: 'config', 
       // config
       // play
       // guess
       // next -> play | results
       // results
-    playIndex: undefined
+    playIndex: undefined,
   };
 }
 
@@ -42,8 +43,8 @@ export function assessmentReducer(
   action: TAction
 ) {
   switch (action.type) {
-    case 'on-config': 
-      return setOptionsAction(state, action.options);
+    case 'on-start': 
+      return startAssessment(state, action.options);
     case 'on-guess':
       return guessAnswerAction(state, action.answer);
     case 'on-repeat':
@@ -127,7 +128,7 @@ export function returnToConfigAction(
   return {
     ...state,
     id: createId(11),
-    status: 'config'
+    status: 'config',
   };
 }
 
@@ -152,7 +153,7 @@ export function setNewMode(
 /**
  * Set Options
  **/
-export function setOptionsAction(
+export function startAssessment(
   state: TAssessmentState,
   options: TOptionMap
 ): TAssessmentState {
@@ -169,8 +170,23 @@ export function setOptionsAction(
       points: 0
     })),
     index: 0,
+    tryCount: toTryCount(state.tryCount, state.options, options),
     status: 'play'
   });
+}
+
+/**
+ * Calculate new Try Count
+ **/
+function toTryCount(
+  tryCount: number,
+  oldOptions: TOptionMap,
+  newOptions: TOptionMap
+): number {
+  return (oldOptions.level == null
+      || oldOptions.level === newOptions.level)
+    ? tryCount + 1
+    : 1;
 }
 
 /**

@@ -5,6 +5,7 @@ export interface TAssessmentState {
   options: TOptionMap;
   questions: TQuestion[];
   index: number;
+  tryCount: number;
   status: string;
   playIndex: number | undefined;
 }
@@ -17,7 +18,7 @@ export interface TQuestion {
 }
 
 export type TAction =
-  | { type: 'on-config', options: any }
+  | { type: 'on-start', options: any }
   | { type: 'on-guess', answer: any }
   | { type: 'on-repeat' }
   | { type: 'on-answer' }
