@@ -10,6 +10,7 @@ import { Answer } from '../answer/answer.component';
 //import { Speech } from '../speech/speech.component';
 import { useKeyboard } from '../../effects/use-keybboard.effect';
 import player from '../../services/player.service';
+import { Countdown } from '../countdown/countdown.component';
 
 /**
  * Assessment Component
@@ -21,8 +22,12 @@ export function Assessment() {
     initAssessment
   );
 
-  function onStart(options: TOptionMap) {
-    dispatch({ type: 'on-start', options });
+  function onCountdown(options: TOptionMap) {
+    dispatch({ type: 'on-countdown', options });
+  }
+
+  function onStart() {
+    dispatch({ type: 'on-start' });
   }
 
   function onGuess(answer: string) {
@@ -66,7 +71,7 @@ export function Assessment() {
 
   return (
     <div className="assessment">
-      {state.status !== 'config' && state.status !== 'results' && (
+      {state.status !== 'config' && state.status !== 'results' && state.status !== 'countdown' && (
         <Phrase
           question={state.questions[state.index]}
           playIndex={state.playIndex}
@@ -76,10 +81,15 @@ export function Assessment() {
       {state.status === 'config' && (
         <Config
           options={state.options}
-          onStart={onStart}
+          onCountdown={onCountdown}
         />
       )}
       <div className="assessment-body">
+        {state.status === 'countdown' && (
+          <Countdown
+            onStart={onStart}
+          />
+        )}
         {state.status === 'play' && (
           <Play />
         )}

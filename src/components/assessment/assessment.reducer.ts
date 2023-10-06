@@ -23,6 +23,7 @@ export function initAssessment(): TAssessmentState {
     tryCount: 0,
     status: 'config', 
       // config
+      // countdown
       // play
       // guess
       // next -> play | results
@@ -43,8 +44,10 @@ export function assessmentReducer(
   action: TAction
 ) {
   switch (action.type) {
+    case 'on-countdown':
+      return goCountdown(state, action.options);
     case 'on-start': 
-      return startAssessment(state, action.options);
+      return startAssessment(state);
     case 'on-guess':
       return guessAnswerAction(state, action.answer);
     case 'on-repeat':
@@ -151,26 +154,39 @@ export function setNewMode(
 }
 
 /**
+ * Start Countdown
+ **/
+export function goCountdown(
+  state: TAssessmentState,
+  options: TOptionMap
+) {
+  setStore('options', state.options);
+
+  return {
+    ...state,
+    options: options,
+    status: 'countdown'
+  };
+}
+
+/**
  * Set Options
  **/
 export function startAssessment(
-  state: TAssessmentState,
-  options: TOptionMap
+  state: TAssessmentState
 ): TAssessmentState {
-  const vocab = new Vocabulary(WORD_LIST2, options.characters as number);
-  setStore('options', options);
+  const vocab = new Vocabulary(WORD_LIST2, state.options.characters as number);
 
   return playQuestion({
     ...state,
-    options: options,
-    questions: pickQuestions(vocab, options).map(phrase => ({
+    questions: pickQuestions(vocab, state.options).map(phrase => ({
       phrase: phrase,
       answer: '',
       answers: pickAnswers(vocab, phrase),
       points: 0
     })),
     index: 0,
-    tryCount: toTryCount(state.tryCount, state.options, options),
+    tryCount: toTryCount(state.tryCount, state.options, state.options),
     status: 'play'
   });
 }

@@ -7,7 +7,7 @@ import { initOptions, reduceOptions } from './config.reducer';
  **/
 export function Config({
   options,
-  onStart
+  onCountdown
 }: TConfigParams) {
   const [state, dispatch] = useReducer(reduceOptions, null,
     () => initOptions(options)
@@ -49,7 +49,7 @@ export function Config({
         out[opt.name] = opt.type(opt.value).value;
         return out;
       }, {});
-      onStart(values);
+      onCountdown(values);
     }
   }
 

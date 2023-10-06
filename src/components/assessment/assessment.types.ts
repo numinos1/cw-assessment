@@ -18,7 +18,8 @@ export interface TQuestion {
 }
 
 export type TAction =
-  | { type: 'on-start', options: any }
+  { type: 'on-countdown', options: any }
+  | { type: 'on-start' }
   | { type: 'on-guess', answer: any }
   | { type: 'on-repeat' }
   | { type: 'on-answer' }

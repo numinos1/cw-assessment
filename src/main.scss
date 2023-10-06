@@ -84,6 +84,28 @@ code {
   }
 }
 
+.countdown {
+  > .count {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 8em;
+    font-weight: bold;
+    color: #090;
+    background-color: #dfd;
+    border: 2px solid #090;    
+    width: 200px;
+    padding: 30px;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 32px;
+
+    &.count-red {
+      color: #900;
+      background-color: #fdd;
+      border: 2px solid #900; 
+    }
+  }
+}
+
 .question {
   background: #fff;
 
