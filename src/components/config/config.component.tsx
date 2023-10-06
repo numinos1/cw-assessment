@@ -14,6 +14,10 @@ export function Config({
   );
   // disable option editing if level is set
   const isEnabled = !state.filter(o => o.name === 'level')[0].value;
+  const values = state.reduce((obj, val) => {
+    obj[val.name] = val.value;
+    return obj;
+  }, {} as Record<string, any>);
 
   /**
    * On Input Change
@@ -67,13 +71,15 @@ export function Config({
             <div>
               <p>
                 The assessment will be a series of questions and multiple-choice answers.
+                Each question will consist of {values.words} word{values.words === 1 ? '' : 's'} containing {values.characters} characters.
                 The program will send you the question in Morse code and display five possible answers.
-                You then select the answer based on what you've heard:
+                You then select the answer based on what you've heard. 
+                This is what it will look like:
               </p>   
-              <b>PLACEHOLDER FOR GRAPHIC</b>
+              <img src="/images/question-screenshot.png" width="100%" />
               <p>
-                The program will then display what was sent and what you selected, indicating which
-                characters you missed, if any.
+                After you have selected an answer, the program will then display what was sent and what you selected, indicating which
+                word{values.words === 1 ? '' : 's'} you missed, if any.
               </p>
               <p>
                 You can then proceed to the next question.

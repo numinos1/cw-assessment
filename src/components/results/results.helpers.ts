@@ -2,7 +2,7 @@ import { TAssessmentState, TQuestion } from "../assessment/assessment.types";
 import { TResults } from './results.types';
 import { MODES } from '../../data/modes';
 
-const CWOPS_URL = 'https://cwa.cwops.org/wp-content/uploads/testapi.php';
+const CWOPS_URL = 'https://cwa.cwops.org/wp-content/uploads/assessmentapi.php';
 
 /**
  * To Results Header
