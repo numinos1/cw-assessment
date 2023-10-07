@@ -86,6 +86,14 @@ export function initOptions(
         value: '',
         error: '',
         isHidden: true
+      },
+      {
+        label: 'Token',
+        name: 'token',
+        type: StringType(),
+        value: '',
+        error: '',
+        isHidden: true
       }
     ]);
 }

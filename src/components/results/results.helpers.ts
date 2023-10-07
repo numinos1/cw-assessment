@@ -34,6 +34,7 @@ export function sendResults(assessment: TAssessmentState) {
   const payload = {
     callsign: options.callsign,
     level: options.level,
+    token: options.token,
     cpm: options.wpm,
     eff: options.eff,
     freq: options.freq,
@@ -41,7 +42,7 @@ export function sendResults(assessment: TAssessmentState) {
     words: options.words,
     characters: options.characters,
     score: results.score,
-    set: toQuestionSet(questions)
+    set: toQuestionSet(questions),
   };
   const formData = new FormData();
 
