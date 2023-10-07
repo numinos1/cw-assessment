@@ -3,32 +3,33 @@ import { TResults } from './results.types';
 import { MODES } from '../../data/modes';
 
 const CWOPS_URL = 'https://cwa.cwops.org/wp-content/uploads/assessmentapi.php';
+const RETRY_THRESHOLD = 60;
 
 /**
  * To Results Header
  **/
-export function toHeader({ right, total, score }: TResults) {
-  if (right === total) {
-    return "Congratulations! you got a perfect score.";
-  }
-  if (total - 1 === right) {
-    return "Good job! you only missed one answer.";
-  }
-  if (score >= 80) {
-    return "Well done. You only missed a couple of answers.";
-  }
-  if (score > 50) {
-    return "You got more than half correct.";
-  }
-  return "You got less than half correct";
-}
+// export function toHeader({ right, total, score }: TResults) {
+//   if (right === total) {
+//     return "Congratulations! you got a perfect score.";
+//   }
+//   if (total - 1 === right) {
+//     return "Good job! you only missed one answer.";
+//   }
+//   if (score >= 80) {
+//     return "Well done. You only missed a couple of answers.";
+//   }
+//   if (score > 50) {
+//     return "You got more than half correct.";
+//   }
+//   return "You got less than half correct";
+// }
 
 /**
  * Send Results
  **/
 export function sendResults(assessment: TAssessmentState) {
   const { options, questions } = assessment;
-  const results = toResults(questions);
+  const results = toResults(assessment);
 
   const payload = {
     callsign: options.callsign,
@@ -77,25 +78,17 @@ export function toQuestionSet(questions: TQuestion[]) {
 /**
  * Calculate Results
  **/
-export function toResults(questions: TQuestion[]): TResults {
-  const total = questions.length;
-  const right = questions.reduce((count, question) =>
-    question.phrase === question.answer
-      ? count + 1
-      : count,
-    0
-  );
-  const words = questions.reduce((count, question) =>
-    count + question.phrase.split(' ').length,
-    0
-  );
+export function toResults(assessment: TAssessmentState): TResults {
+  const { options, questions } = assessment;
+  const words = options.words as number;
+  const total = questions.length * words;
   const points = questions.reduce((count, question) =>
     count + question.points,
     0
   );
-  const score = Math.round((points / words) * 100);
+  const score = Math.round((points / total) * 100);
 
-  return { total, right, words, score };
+  return { total, points, score };
 }
 
 /**
@@ -108,7 +101,7 @@ export function toNextMode(assessment: TAssessmentState, results: TResults) {
 
   if (modeIndex >= 0) {
     const score = results.score;
-    const nextMode = (score >= 40)
+    const nextMode = (score >= RETRY_THRESHOLD)
       ? modes[modeIndex + 1] || ''
       : modes[modeIndex - 1] || '';
     const nextLevel = MODES[nextMode]?.level || '';

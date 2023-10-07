@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { TResultsParams } from "./results.types";
-import { toResults, sendResults, toHeader, toNextMode } from './results.helpers';
+import { toResults, sendResults, toNextMode } from './results.helpers';
 
 /**
  * Results Component
@@ -11,7 +11,7 @@ export function Results({
   onClose,
   onMode
 }: TResultsParams) {
-  const results = toResults(assessment.questions);
+  const results = toResults(assessment);
   const nextMode = toNextMode(assessment, results);
 
   useEffect(() =>
@@ -21,7 +21,7 @@ export function Results({
 
   return (
     <div className="results">
-      <h2>{toHeader(results)}</h2>
+      <h2>You correctly got {results.points} out of {results.total} words</h2>
       <div className="score">{results.score}%</div>
       <div className="buttons">
         {assessment.tryCount < 2

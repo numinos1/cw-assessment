@@ -10,7 +10,6 @@ export interface TResultsParams {
 
 export interface TResults {
   total: number;
-  right: number;
-  words: number;
+  points: number;
   score: number;
 }

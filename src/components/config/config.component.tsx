@@ -71,6 +71,7 @@ export function Config({
             <div>
               <p>
                 The assessment will be a series of questions and multiple-choice answers.
+                <b>You will be able to do the assessment twice.</b>
                 Each question will consist of {values.words} word{values.words === 1 ? '' : 's'} containing {values.characters} characters.
                 The program will send you the question in Morse code and display five possible answers.
                 You then select the answer based on what you've heard. 

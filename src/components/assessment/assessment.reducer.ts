@@ -51,7 +51,7 @@ export function assessmentReducer(
     case 'on-guess':
       return guessAnswerAction(state, action.answer);
     case 'on-repeat':
-      return returnToConfigAction(state)
+      return repeatAssessment(state)
     case 'on-answer':
       return nextQuestionAction(state)
     case 'on-mode':
@@ -125,13 +125,13 @@ export function nextQuestionAction(
 /**
  * Return To Config
  **/
-export function returnToConfigAction(
+export function repeatAssessment(
   state: TAssessmentState
 ): TAssessmentState {
   return {
     ...state,
     id: createId(11),
-    status: 'config',
+    status: 'countdown',
   };
 }
 

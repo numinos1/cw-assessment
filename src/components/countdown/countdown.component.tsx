@@ -1,5 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 
+const COUNTDOWN_SECONDS = 5;
+
 interface TCountdownParams {
   onStart: () => void
 }
@@ -7,7 +9,7 @@ interface TCountdownParams {
 export function Countdown({
   onStart
 }: TCountdownParams) {
-  const [ count, setCount ] = useState(5);
+  const [ count, setCount ] = useState(COUNTDOWN_SECONDS);
   const ref = useRef<any>(null);
 
   useEffect(() => {
@@ -22,8 +24,10 @@ export function Countdown({
 
   return (
     <div className="countdown">
-      <p>Get ready. First question starts in...</p>
-      <div className={ count === 1 ? 'count count-red' : 'count'}>{count}</div>
+      <p>Get ready. First question starts in</p>
+      <div className={count === 1 ? 'count count-red' : 'count'}>
+        <span className="animate-flicker">{count}</span>
+      </div>
     </div>
   );
 }

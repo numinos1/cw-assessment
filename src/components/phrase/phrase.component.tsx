@@ -45,14 +45,12 @@ export function Phrase({
   }, []);
 
   return (
-    <div>
-      <div className="phrase">
-        {slots.map((slot, index) => (
-          <div className={slot.style} key={index}>
-            {slot.letter}
-          </div>
-        ))}
-      </div>
+    <div className="phrase">
+      {slots.map((slot, index) => (
+        <div className={slot.style} key={index}>
+          {slot.letter}
+        </div>
+      ))}
     </div>
   );
 }

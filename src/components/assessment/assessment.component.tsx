@@ -6,7 +6,7 @@ import { TOptionMap } from '../config/config.types';
 import { Play } from '../play/play.component';
 import { Results } from '../results/results.component';
 import { Phrase } from '../phrase/phrase.component';
-import { Answer } from '../answer/answer.component';
+import { Continue } from '../continue/continue.component';
 //import { Speech } from '../speech/speech.component';
 import { useKeyboard } from '../../effects/use-keybboard.effect';
 import player from '../../services/player.service';
@@ -104,7 +104,7 @@ export function Assessment() {
           />
         )}
         {state.status === 'answer' && (
-          <Answer
+          <Continue
             questions={state.questions}
             onAnswer={onAnswer}
             onClose={onClose}

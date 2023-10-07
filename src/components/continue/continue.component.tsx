@@ -1,13 +1,13 @@
-import { TAnswerParams } from "./answer.types";
+import { TContinueParams } from "./continue.types";
 
-export function Answer({
+export function Continue({
   questions,
   onAnswer,
   onClose,
   index
-}: TAnswerParams) {
+}: TContinueParams) {
   return (
-    <div className="buttons">
+    <div className="continue">
       <button className="a-button" onClick={onAnswer}>
         {(questions.length - 1) === index
           ? 'See Results'

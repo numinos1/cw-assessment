@@ -7,7 +7,7 @@ body, html, * {
 }
 
 body {
-  margin: 2em;
+  margin: 1em;
 }
 
 code {
@@ -17,10 +17,22 @@ code {
 
 .app {
   margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  > h1 {
+    text-align: center;
+  }
+}
+
+.assessment {
+  text-align: center;
+  margin: 0 auto;
 }
 
 .assessment-body {
-  margin: 2em 0;
+  margin: 0;
 }
 
 .a-button {
@@ -40,7 +52,7 @@ code {
   }
 }
 
-.buttons {
+.continue {
   display: flex;
 
   > button {
@@ -50,8 +62,9 @@ code {
 
 .phrase {
   display: flex;
-  justify-content: flex-start;
-  width: 500px;
+  align-items: center;
+  justify-content: center;
+
 
   > .phrase-slot {
     font-size: 1.2em;
@@ -84,30 +97,50 @@ code {
   }
 }
 
+.animate-flicker {
+  animation: fadein 1s infinite;
+}
+
+@keyframes fadein {
+  from { 
+    opacity: 1;
+    font-size: 2em;
+  }
+  to   { 
+    opacity: 0;
+    font-size: 15em;
+
+  }
+}
+
 .countdown {
+  > p {
+    margin: 0;
+  }
   > .count {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 8em;
     font-weight: bold;
     color: #090;
-    background-color: #dfd;
-    border: 2px solid #090;    
-    width: 200px;
-    padding: 30px;
-    border-radius: 6px;
     text-align: center;
-    margin-top: 32px;
+    margin-top: 2em;
+
+    > span {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 200px;
+      width: 100%;
+    }
 
     &.count-red {
       color: #900;
-      background-color: #fdd;
-      border: 2px solid #900; 
     }
   }
 }
 
 .question {
-  background: #fff;
+  width: 500px;
+  margin: 2em auto;
 
   &.question-play {
     background: #fee;
@@ -149,45 +182,42 @@ code {
 }
 
 .options-form {
-  max-width: 350px;
-
-  .options-input {
-    font-size: 1.1em;
-    padding: .5em;
-    margin: 4px 0 0;
-
-    > label {
-      display: block;
-      float: left;
+  > form {
+    max-width: 600px; 
+    
+    p {
+      text-align: left;
     }
-    > input {
-      display: block;
-      width: 120px;
-      margin-left: 150px;
+
+    .options-input {
       font-size: 1.1em;
-    }
-    .options-error {
-      display: none;
-    }
-    &.options-errors {
-      background-color: #fee;
-      border: 1px solid #900;
+      padding: .5em;
+      margin: 4px 0 0;
 
-      .option-error {
+      > label {
         display: block;
-        font-size: .9em;
-        font-weight: bold;
-        color: #900;
+        float: left;
+      }
+      > input {
+        display: block;
+        width: 120px;
+        margin-left: 150px;
+        font-size: 1.1em;
+      }
+      .options-error {
+        display: none;
+      }
+      &.options-errors {
+        background-color: #fee;
+        border: 1px solid #900;
+
+        .option-error {
+          display: block;
+          font-size: .9em;
+          font-weight: bold;
+          color: #900;
+        }
       }
     }
-  }
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
   }
 }
