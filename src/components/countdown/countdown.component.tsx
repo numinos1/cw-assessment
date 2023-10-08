@@ -25,7 +25,7 @@ export function Countdown({
   return (
     <div className="countdown">
       <div className={count === 1 ? 'count count-red' : 'count'}>
-        <span className="animate-flicker">{count}</span>
+        <span className="expand-and-fade" key={count}>{count}</span>
       </div>
     </div>
   );

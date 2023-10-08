@@ -126,7 +126,8 @@ code {
 
 @keyframes playletter {
   from {
-    background-color: hsl(218, 93%, 55%);
+    background-color: rgb(91, 123, 227);
+    color: #fff;
   }
   to {
     background-color: #eee;
@@ -137,7 +138,6 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
-
 
   > .phrase-slot {
     font-size: 1.2em;
@@ -150,18 +150,14 @@ code {
     display: inline;
     text-align: center;
     border-radius: 4px;
-    color: #999;
+    color: #aaa;
 
     &.phrase-slot-space {
       background-color: transparent;
       width: .7em;
     }
     &.phrase-slot-play {
-      background-color: hsl(218, 84%, 75%);
-      color: #fff;
-      animation-name: playletter;
-      animation-duration: 0.8s;
-      animation-timing-function: ease-in-out;
+      animation: 0.5s ease-in 0.1s 1 normal forwards running playletter;
     }
     &.phrase-slot-right {
       background-color: #090;
@@ -174,8 +170,8 @@ code {
   }
 }
 
-.animate-flicker {
-  animation: fadein 1s infinite;
+.expand-and-fade {
+  animation: fadein 1s 1;
 }
 
 @keyframes fadein {
@@ -197,7 +193,7 @@ code {
   > .count {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: bold;
-    color: #090;
+    color: rgb(91, 123, 227);
     text-align: center;
     margin-top: 2em;
 
@@ -210,7 +206,7 @@ code {
     }
 
     &.count-red {
-      color: #900;
+      color: rgb(91, 123, 227);
     }
   }
 }
@@ -229,7 +225,7 @@ code {
       padding: .5em 1em;
       font-size: 1.3em;
       margin: .5em auto;
-      border-radius: 16px;
+      border-radius: 8px;
       border: 1px solid #bbb;
       text-align: center;
       align-content: center;
@@ -260,11 +256,21 @@ code {
 }
 
 .options-form {
+
+  .screenshot {
+    margin: 1.5em 0;
+    width: 60%;
+    border: 1px solid #ddd;
+    -webkit-box-shadow: 5px 6px 13px -3px rgba(0,0,0,0.52);
+    -moz-box-shadow: 5px 6px 13px -3px rgba(0,0,0,0.52);
+    box-shadow: 5px 6px 13px -3px rgba(0,0,0,0.52);
+  }
+
   > form {
     max-width: 600px; 
     
     p {
-      text-align: left;
+      text-align: center;
     }
 
     .options-input {

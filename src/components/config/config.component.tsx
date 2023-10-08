@@ -71,16 +71,16 @@ export function Config({
           : (
             <div>
               <p>
-                The assessment will be a series of questions and multiple-choice answers.
-                <b>You will be able to do the assessment twice.</b>
+                The assessment is a series of questions and multiple-choice answers.
+                <b>You will be able to take the assessment twice. </b>
                 Each question will consist of {values.words} word{values.words === 1 ? '' : 's'} containing {values.characters} characters.
-                The program will send you the question in Morse code and display five possible answers.
-                You then select the answer based on what you've heard. 
+                The program will send you the question in Morse code and will subsequently display five possible answers.
+                You will then select the answer based on what you've heard. 
                 This is what it will look like:
               </p>   
-              <img src="/images/question-screenshot.png" width="100%" />
+              <img src="/images/question-screenshot-3.png" className="screenshot" />
               <p>
-                After you have selected an answer, the program will then display what was sent and what you selected, indicating which
+                After you have selected an answer, the program will display what was sent and what you selected, indicating which
                 word{values.words === 1 ? '' : 's'} you missed, if any.
               </p>
               <p>
