@@ -3,7 +3,6 @@ import { initAssessment, assessmentReducer } from './assessment.reducer';
 import { Guess } from '../guess/guess.component';
 import { Config } from '../config/config.component';
 import { TOptionMap } from '../config/config.types';
-import { Play } from '../play/play.component';
 import { Results } from '../results/results.component';
 import { Phrase } from '../phrase/phrase.component';
 import { Continue } from '../continue/continue.component';
@@ -11,6 +10,7 @@ import { Continue } from '../continue/continue.component';
 import { useKeyboard } from '../../effects/use-keybboard.effect';
 import player from '../../services/player.service';
 import { Countdown } from '../countdown/countdown.component';
+import { Instructions } from '../instructions/instructions.component';
 
 /**
  * Assessment Component
@@ -71,6 +71,8 @@ export function Assessment() {
 
   return (
     <div className="assessment">
+      <Instructions status={state.status}></Instructions>
+
       {state.status !== 'config' && state.status !== 'results' && state.status !== 'countdown' && (
         <Phrase
           question={state.questions[state.index]}
@@ -89,9 +91,6 @@ export function Assessment() {
           <Countdown
             onStart={onStart}
           />
-        )}
-        {state.status === 'play' && (
-          <Play />
         )}
         {/* {state.status === 'guess' && (
           <Speech question={state.questions[state.index]} onGuess={onGuess} />

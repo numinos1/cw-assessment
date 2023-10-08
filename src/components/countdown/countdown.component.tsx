@@ -24,7 +24,6 @@ export function Countdown({
 
   return (
     <div className="countdown">
-      <p>Get ready. First question starts in</p>
       <div className={count === 1 ? 'count count-red' : 'count'}>
         <span className="animate-flicker">{count}</span>
       </div>

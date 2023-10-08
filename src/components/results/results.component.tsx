@@ -21,8 +21,10 @@ export function Results({
 
   return (
     <div className="results">
-      <h2>You correctly got {results.points} out of {results.total} words</h2>
-      <div className="score">{results.score}%</div>
+      <div className="results-score">
+        <h2>You got {results.points} out of {results.total} words</h2>
+        <div className="score">{results.score}%</div>
+      </div>
       <div className="buttons">
         {assessment.tryCount < 2
           ? (<button className="a-button" onClick={onRepeat}>Try Again</button>)

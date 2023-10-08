@@ -23,12 +23,17 @@ code {
 
   > h1 {
     text-align: center;
+    margin: 0.2em;
   }
 }
 
 .assessment {
   text-align: center;
   margin: 0 auto;
+
+  > .instructions {
+    margin: 0.5em 0 1.5em 0;
+  }
 }
 
 .assessment-body {
@@ -42,13 +47,34 @@ code {
 }
 
 .results {
-  h2 {
-    font-size: 1.3em;
-  }
-  .score {
-    font-size: 3em;
-    font-weight: bold;
-    color: #090;
+
+  > .results-score {
+    background-color: #009c2d;
+    // background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+    //   radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+    border-radius: 8px;
+    padding: 1.3em;
+    width: 280px;
+
+    h2 {
+      font-size: 1.1em;
+      color: #fff;
+      margin: 0 0 0.2em 0;
+      text-shadow: -0.5px 0.7px 2px rgba(0, 0, 0, 0.9);
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      background-clip: text;
+    }
+    .score {
+      font-size: 6em;
+      font-weight: bold;
+      color: #ccffcc;
+      text-shadow: -0.5px 0.7px 2px rgba(0, 0, 0, 0.9);
+      -webkit-background-clip: text;
+      -moz-background-clip: text;
+      background-clip: text;
+      line-height: 1em;
+    }
   }
 }
 
