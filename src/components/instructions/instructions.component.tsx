@@ -16,7 +16,7 @@ export function Instructions({ status }: TInstructions) {
 function showInstructions(status: string) {
   switch (status) {
     case 'config':
-      return 'Configure the settings';
+      return '';
     case 'countdown':
       return 'Get ready. First question starts in';
     case 'play':

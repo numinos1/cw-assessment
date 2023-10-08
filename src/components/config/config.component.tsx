@@ -13,7 +13,8 @@ export function Config({
     () => initOptions(options)
   );
   // disable option editing if level is set
-  const isEnabled = !state.filter(o => o.name === 'level')[0].value;
+  const mode = state.filter(o => o.name === 'mode')[0].value;
+  const isEnabled = !mode || mode === 'specific';
   const values = state.reduce((obj, val) => {
     obj[val.name] = val.value;
     return obj;

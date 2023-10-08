@@ -71,7 +71,9 @@ export function Assessment() {
 
   return (
     <div className="assessment">
-      <Instructions status={state.status}></Instructions>
+      <Instructions 
+        status={state.status}
+      />
 
       {state.status !== 'config' && state.status !== 'results' && state.status !== 'countdown' && (
         <Phrase
