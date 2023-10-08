@@ -145,7 +145,7 @@ export function setNewMode(
   return {
     ...state,
     id: createId(11),
-    status: 'config',
+    status: 'countdown',
     options: {
       ...state.options,
       mode
