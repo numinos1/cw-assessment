@@ -7,7 +7,7 @@ body, html, * {
 }
 
 body {
-  margin: 1em;
+  margin: 1em 2em;
 }
 
 code {
@@ -258,8 +258,8 @@ code {
 .options-form {
 
   .screenshot {
-    margin: 1.5em 0;
-    width: 60%;
+    margin: 1em 0;
+    width: 70%;
     border: 1px solid #ddd;
     -webkit-box-shadow: 5px 6px 13px -3px rgba(0,0,0,0.52);
     -moz-box-shadow: 5px 6px 13px -3px rgba(0,0,0,0.52);
@@ -270,7 +270,10 @@ code {
     max-width: 600px; 
     
     p {
-      text-align: center;
+      text-align: justify;
+      text-justify: inter-word;
+      line-height: 1.6em;
+      font-size: 1.1em;
     }
 
     .options-input {
