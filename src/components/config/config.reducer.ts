@@ -94,6 +94,14 @@ export function initOptions(
         value: '',
         error: '',
         isHidden: true
+      },
+      {
+        label: 'Return URL',
+        name: 'returnurl',
+        type: StringType(),
+        value: '',
+        error: '',
+        isHidden: true
       }
     ]);
 }

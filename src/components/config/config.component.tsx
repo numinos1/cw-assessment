@@ -92,7 +92,9 @@ export function Config({
             </div>
           )
         }
-        <button type="submit" className="a-button">Start Assessment</button>
+        <div className="continue">
+          <button type="submit" className="a-button">Start Assessment</button>
+        </div>
       </form>
     </div>
   );
