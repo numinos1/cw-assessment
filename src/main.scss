@@ -90,7 +90,7 @@ code {
     border-radius: 8px;
     padding: 1.3em;
     width: 300px;
-    margin: 0 auto;
+    margin: 0 auto 2em auto;
 
     h2 {
       font-size: 1.1em;
@@ -126,7 +126,7 @@ code {
 
 @keyframes playletter {
   from {
-    background-color: rgb(91, 123, 227);
+    background-color: rgb(46, 79, 198);
     color: #fff;
   }
   to {
@@ -215,9 +215,6 @@ code {
   width: 400px;
   margin: 2em auto;
 
-  &.question-play {
-    background: #fee;
-  }
   .question-answers {
     button {
       display: flex;
@@ -232,24 +229,32 @@ code {
       align-items: center;
       width: 100%;
 
+      &:hover {
+        background-color: #d9d9d9;
+        cursor: pointer;
+      }
+
       &.question-right {
         background-color: #efe;
         border: 1px solid #090;
         color: #000;
+        cursor: default;
       }
       &.question-wrong {
         background-color: #fee;
         border: 1px solid #900;
-        // color: #fff;
+        cursor: default;
       }
       &.question-half {
         background-color: #fffed9;
         border: 1px solid #ddd799;
+        cursor: default;
       }
       &.question-ignore {
         background-color: #f9f9f9;
         color: #ddd;
         border: 1px solid #f9f9f9;
+        cursor: default;
       }
     }
   }
