@@ -43,7 +43,14 @@ export function Assessment() {
   }
 
   function onClose() {
-    window.close();
+    const options = state.options as TOptionMap;
+
+    if (options.returnurl) {
+      window.location.href = `${options.returnurl}`;
+    }
+    else {
+      window.close();
+    }
   }
 
   function onMode(mode: string) {

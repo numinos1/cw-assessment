@@ -2,6 +2,8 @@ import { useReducer, FormEvent } from 'react';
 import { TConfigParams, TOptionMap } from './config.types';
 import { initOptions, reduceOptions } from './config.reducer';
 
+const NUMBERS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
 /**
  * Config Component
  **/
@@ -73,7 +75,7 @@ export function Config({
               <p>
                 The assessment is a series of questions and multiple-choice answers.
                 <b>You will be able to take the assessment twice. </b>
-                Each question will consist of {values.words} word{values.words === 1 ? '' : 's'} containing {values.characters} characters.
+                Each question will consist of {NUMBERS[values.words]} word{values.words === 1 ? '' : 's'} containing {NUMBERS[values.characters]} characters.
                 The program will send you the question in Morse code and will subsequently display five possible answers.
                 You will then select the answer based on what you've heard. 
                 This is what it will look like:
