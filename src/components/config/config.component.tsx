@@ -2,7 +2,7 @@ import { useReducer, FormEvent } from 'react';
 import { TConfigParams, TOptionMap } from './config.types';
 import { initOptions, reduceOptions } from './config.reducer';
 
-const NUMBERS = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+const NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
 /**
  * Config Component
