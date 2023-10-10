@@ -6,6 +6,7 @@ import { Vocabulary } from '../../utils/vocabulary';
 import { setStore } from '../../utils/local-storage';
 import { createId } from '../../utils/values';
 import { pickQuestions, pickAnswers, playQuestion } from './assessment.helpers';
+import { MODES } from '../../data/modes';
 
 // ---------------------------------------------------------
 //                       Initialize
@@ -148,9 +149,10 @@ export function setNewMode(
     status: 'countdown',
     options: {
       ...state.options,
-      mode
+      ...MODES[mode.toLowerCase()],
+      mode,
     }
-  }
+  };
 }
 
 /**

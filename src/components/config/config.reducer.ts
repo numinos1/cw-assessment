@@ -220,8 +220,7 @@ function initValues(
 
   return state.map(option => {
     const { name } = option;
-    let value = modeValues[name]
-      || values[name];
+    let value = modeValues[name] || values[name];
 
     if (value == null) {
       value = urlValues.get(name === 'wpm' ? 'cpm' : name)

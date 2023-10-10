@@ -15,7 +15,7 @@ export function Guess({
         {question.answers.map(answer => (
           <button
             key={answer}
-            onClick={() => onGuess(answer)}
+            onClick={() => status === 'guess' && onGuess(answer)}
             className={toStyle(status, question, answer)}
           >
             {answer}

@@ -52,6 +52,10 @@ export function Config({
         out[opt.name] = opt.type(opt.value).value;
         return out;
       }, {});
+
+      if (values.eff > values.wpm) {
+        values.eff = values.wpm;
+      }
       onCountdown(values);
     }
   }
