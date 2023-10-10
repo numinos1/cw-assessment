@@ -18,7 +18,7 @@ export function initOptions(
       {
         label: 'Callsign',
         name: 'callsign',
-        type: CallsignType(),
+        type: StringType(),
         value: '',
         error: '',
         isHidden: false
@@ -126,25 +126,25 @@ function StringType(): Function {
 /**
  * Callsign Validator
  **/
-function CallsignType(): Function {
-  return (initValue: any) => {
-    let error = '';
-    let value = '';
+// function CallsignType(): Function {
+//   return (initValue: any) => {
+//     let error = '';
+//     let value = '';
     
-    if (initValue != null) {
-      value = `${initValue}`
-    }
-    value = value.trim().toUpperCase();
+//     if (initValue != null) {
+//       value = `${initValue}`
+//     }
+//     value = value.trim().toUpperCase();
 
-    // All call signs: [a-zA-Z0-9]{1,3}[0-9][a-zA-Z0-9]{0,3}[a-zA-Z]
-    // Non-US call signs: \b(?!K)(?!k)(?!N)(?!n)(?!W)(?!w)(?!A[A-L])(?!a[a-l])[a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[0-9][a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?\b
-    // US call signs: [AKNWaknw][a-zA-Z]{0,2}[0-9][a-zA-Z]{1,3}
-    if (!/^[A-Z0-9]{1,3}[0-9][A-Z0-9]{0,3}[A-Z]\/?[A-Z0-9]{0,5}$/.test(value)) {
-      error = 'Invalid Callsign';
-    }
-    return { value, error };
-  }
-}
+//     // All call signs: [a-zA-Z0-9]{1,3}[0-9][a-zA-Z0-9]{0,3}[a-zA-Z]
+//     // Non-US call signs: \b(?!K)(?!k)(?!N)(?!n)(?!W)(?!w)(?!A[A-L])(?!a[a-l])[a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[0-9][a-zA-Z0-9][a-zA-Z0-9]?[a-zA-Z0-9]?[a-zA-Z0-9]?\b
+//     // US call signs: [AKNWaknw][a-zA-Z]{0,2}[0-9][a-zA-Z]{1,3}
+//     if (!/^[A-Z0-9]{1,3}[0-9][A-Z0-9]{0,3}[A-Z]\/?[A-Z0-9]{0,5}$/.test(value)) {
+//       error = 'Invalid Callsign';
+//     }
+//     return { value, error };
+//   }
+// }
 
 /**
  * Number Validator
