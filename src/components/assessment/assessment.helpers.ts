@@ -66,7 +66,7 @@ export function playQuestion(
         `[set freq:${freq}]${phrase}`,
         state.options
       ),
-      100
+      500
     );
   }
   return state;
