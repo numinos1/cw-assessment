@@ -1,6 +1,7 @@
 import { useReducer, FormEvent } from 'react';
 import { TConfigParams, TOptionMap } from './config.types';
 import { initOptions, reduceOptions } from './config.reducer';
+import player from '../../services/player.service';
 
 const NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
@@ -44,7 +45,10 @@ export function Config({
     event: FormEvent
   ) {
     event.preventDefault();
-    
+
+    // init during button event
+    player.init();
+
     const errors = state.filter(opt => !!opt.error);
 
     if (!errors.length) {
