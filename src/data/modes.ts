@@ -15,7 +15,7 @@ export const MODES: Record<string, TModeData> = {
     eff: 4, // 4
     freq: "500,550,600,650,700",
     questions: 5,
-    words: 2,
+    words: 1,
     characters: 2
   },
   fundamental: {
