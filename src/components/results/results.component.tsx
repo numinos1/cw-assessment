@@ -13,6 +13,8 @@ export function Results({
 }: TResultsParams) {
   const results = toResults(assessment);
   const nextMode = toNextMode(assessment, results);
+  const againMode = !nextMode && assessment.tryCount < 2;
+  const returnMode = !nextMode && !againMode;
 
   useEffect(() =>
     sendResults(assessment),
@@ -26,7 +28,7 @@ export function Results({
         <div className="score">{results.score}%</div>
       </div>
       <div className="continue">
-        {assessment.tryCount < 2
+        {againMode
           ? (<button className="a-button" onClick={onRepeat}>Try Again</button>)
           : ''
         }
@@ -34,7 +36,10 @@ export function Results({
           ? (<button className="a-button" onClick={() => onMode(nextMode)}>Try {nextMode}</button>)
           : ''
         }
-        <button className="a-button" onClick={onClose}>Return to CWOps</button>
+        {returnMode
+          ? (<button className="a-button" onClick={onClose}>Return to CWOps</button>)
+          : ''
+        }
       </div>
     </div>
   );
