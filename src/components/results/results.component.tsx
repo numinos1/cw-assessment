@@ -14,7 +14,7 @@ export function Results({
   const results = toResults(assessment);
   const nextMode = toNextMode(assessment, results);
   const againMode = !nextMode && assessment.tryCount < 2;
-  const returnMode = !nextMode && !againMode;
+  const returnMode = againMode || !nextMode;
 
   useEffect(() =>
     sendResults(assessment),
