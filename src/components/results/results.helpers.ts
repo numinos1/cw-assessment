@@ -99,8 +99,9 @@ export function toNextMode(assessment: TAssessmentState, results: TResults) {
   const modes = Object.keys(MODES);
   const level = `${assessment.options.level}`.toLowerCase();
   const modeIndex = modes.indexOf(level);
+  const mode = assessment.options.mode;
 
-  if (modeIndex >= 0) {
+  if (mode !== 'specific' && modeIndex >= 0) {
     const score = results.score;
     const nextMode = (score >= RETRY_THRESHOLD)
       ? modes[modeIndex + 1] || ''
