@@ -13,8 +13,8 @@ export function Results({
 }: TResultsParams) {
   const results = toResults(assessment);
   const nextMode = toNextMode(assessment, results);
-  const againMode = !nextMode && assessment.tryCount < 2;
-  const returnMode = againMode || !nextMode;
+  const againMode = assessment.tryCount < 2;
+  const returnMode = true;  //againMode || !nextMode;
 
   useEffect(() =>
     sendResults(assessment),
