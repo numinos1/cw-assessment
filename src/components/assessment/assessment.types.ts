@@ -8,6 +8,7 @@ export interface TAssessmentState {
   tryCount: number;
   status: string;
   playIndex: number | undefined;
+  doneLevels: Set<string>;
 }
 
 export interface TQuestion {

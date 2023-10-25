@@ -107,8 +107,11 @@ export function toNextMode(assessment: TAssessmentState, results: TResults) {
       ? modes[modeIndex + 1] || ''
       : modes[modeIndex - 1] || '';
     const nextLevel = MODES[nextMode]?.level || '';
-    
-    return nextLevel;
+
+    // don't allow repeating a done level
+    if (!assessment.doneLevels.has(nextLevel.toLocaleLowerCase())) {
+      return nextLevel;
+    }
   }
   return '';
 }

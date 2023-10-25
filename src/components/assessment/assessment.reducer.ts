@@ -30,6 +30,7 @@ export function initAssessment(): TAssessmentState {
       // next -> play | results
       // results
     playIndex: undefined,
+    doneLevels: new Set()
   };
 }
 
@@ -143,6 +144,12 @@ export function setNewMode(
   state: TAssessmentState,
   mode: string
 ) {
+  const doneLevels = new Set(
+    [...state.doneLevels]
+      .concat(state.options.mode + '')
+  );
+  console.log('SETNEWMODE', doneLevels);
+
   return {
     ...state,
     id: createId(11),
@@ -151,7 +158,8 @@ export function setNewMode(
       ...state.options,
       ...MODES[mode.toLowerCase()],
       mode,
-    }
+    },
+    doneLevels
   };
 }
 
