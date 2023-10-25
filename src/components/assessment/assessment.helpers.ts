@@ -26,15 +26,17 @@ export function pickQuestions(
  **/
 export function pickAnswers(
   vocab: Vocabulary,
-  phrase: string
+  phrase: string,
+  options: TOptionMap
 ): string[] {
+  const answerTotal = Number(options.answers) || 5;
   const words = phrase.split(' ');
   const answers = new Set([phrase]);
   const wordLists = words.map(word => 
     vocab.getSimilarWords(word)
   );
 
-  for (let i = 0; answers.size < 5 && i < 100; ++i) {
+  for (let i = 0; answers.size < answerTotal && i < 100; ++i) {
     const answer = wordLists.map(matches => 
       randomEntry(matches, i < 5 ? 3 : 10)
     )

@@ -56,6 +56,14 @@ export function initOptions(
         isHidden: false
       },
       {
+        label: 'Answer Count',
+        name: 'answers',
+        type: NumberType(3, 10),
+        value: 5, 
+        error: '',
+        isHidden: false
+      },
+      {
         label: 'Word Count',
         name: 'words',
         type: NumberType(1, 5),

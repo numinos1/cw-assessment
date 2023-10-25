@@ -184,7 +184,7 @@ export function startAssessment(
     questions: pickQuestions(vocab, state.options).map(phrase => ({
       phrase: phrase,
       answer: '',
-      answers: pickAnswers(vocab, phrase),
+      answers: pickAnswers(vocab, phrase, state.options),
       points: 0
     })),
     index: 0,
