@@ -110,6 +110,22 @@ export function initOptions(
         value: '',
         error: '',
         isHidden: true
+      },
+      {
+        label: 'CWOps Info',
+        name: 'infor',
+        type: StringType(),
+        value: '',
+        error: '',
+        isHidden: true
+      },
+      {
+        label: 'Vocabulary',
+        name: 'vocab',
+        type: StringType(),
+        value: 'threek',
+        error: '',
+        isHidden: true
       }
     ]);
 }

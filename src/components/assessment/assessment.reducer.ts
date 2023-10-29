@@ -1,7 +1,7 @@
 //import { getStore } from '../../utils/local-storage';
 import { TOptionMap } from '../config/config.types';
 import { TAssessmentState, TAction } from './assessment.types';
-import { WORD_LIST2 } from '../../data/words';
+import { vocabMap, threek }  from '../../data/vocab-map';
 import { Vocabulary } from '../../utils/vocabulary';
 import { setStore } from '../../utils/local-storage';
 import { createId } from '../../utils/values';
@@ -185,7 +185,10 @@ export function goCountdown(
 export function startAssessment(
   state: TAssessmentState
 ): TAssessmentState {
-  const vocab = new Vocabulary(WORD_LIST2, state.options.characters as number);
+  const vocab = new Vocabulary(
+    vocabMap.get(`${state.options.vocab}`) || threek,
+    state.options.characters as number
+  );
 
   return playQuestion({
     ...state,
