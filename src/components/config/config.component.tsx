@@ -57,8 +57,8 @@ export function Config({
         return out;
       }, {});
 
-      if (values.eff > values.wpm) {
-        values.eff = values.wpm;
+      if (values.eff > values.cpm) {
+        values.eff = values.cpm;
       }
       onCountdown(values);
     }

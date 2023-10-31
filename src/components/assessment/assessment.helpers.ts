@@ -61,15 +61,22 @@ export function playQuestion(
       freq = freq.replace(/,/gm, ' '); 
       freq = `[pick from:"${freq}"]`;
     }
+    // Translate CPM to WPM for the CW engine
+    const options = {
+      ...state.options,
+      wpm: state.options.cpm
+    };
     // TODO - [set freq:x] is needed to fix a bug in the player.
     // The options.freq doesn't take effect on the first run.
     setTimeout(() =>
       player.play(
         `[set freq:${freq}]${phrase}`,
-        state.options
+        options
       ),
       2000
     );
+
+    console.log('opts', options);
   }
   return state;
 }

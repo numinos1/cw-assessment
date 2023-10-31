@@ -25,7 +25,7 @@ export function initOptions(
       },
       {
         label: 'Character Speed',
-        name: 'wpm',
+        name: 'cpm',
         type: NumberType(15, 100),
         value: 30,
         error: '',
@@ -247,8 +247,8 @@ function initValues(
     let value = modeValues[name] || values[name];
 
     if (value == null) {
-      value = urlValues.get(name === 'wpm' ? 'cpm' : name)
-        || htmlValues[name === 'wpm' ? 'cpm' : name]
+      value = urlValues.get(name)
+        || htmlValues[name]
        // || storeValues[name]
         || option.value;
     }

@@ -35,7 +35,7 @@ export function sendResults(assessment: TAssessmentState) {
     callsign: options.callsign,
     level: options.level,
     token: options.token,
-    cpm: options.wpm,
+    cpm: options.cpm,
     eff: options.eff,
     freq: options.freq,
     questions: questions.length,
