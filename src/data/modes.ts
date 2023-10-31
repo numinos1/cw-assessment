@@ -6,6 +6,7 @@ export interface TModeData {
   questions: number;
   words: number;
   characters: number;
+  answers: number;
 }
 
 export const MODES: Record<string, TModeData> = {
@@ -15,8 +16,9 @@ export const MODES: Record<string, TModeData> = {
     eff: 4, // 4
     freq: "500,550,600,650,700",
     questions: 5,
-    words: 1,
-    characters: 2
+    words: 2,
+    characters: 2,
+    answers: 5
   },
   fundamental: {
     level: 'Fundamental',
@@ -25,7 +27,8 @@ export const MODES: Record<string, TModeData> = {
     freq: "500,550,600,650,700",
     questions: 5,
     words: 2,
-    characters: 2
+    characters: 3,
+    answers: 5
   },
   intermediate: {
     level: 'Intermediate',
@@ -34,15 +37,17 @@ export const MODES: Record<string, TModeData> = {
     freq: "500,550,600,650,700",
     questions: 5,
     words: 2,
-    characters: 3
+    characters: 3,
+    answers: 6
   },
   advanced: {
     level: 'Advanced',
-    cpm: 25,
+    cpm: 30,
     eff: 20, // 20
     freq: "500,550,600,650,700",
     questions: 5,
     words: 2,
-    characters: 4
+    characters: 4,
+    answers: 7
   }
 };
