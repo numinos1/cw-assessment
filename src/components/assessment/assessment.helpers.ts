@@ -73,10 +73,8 @@ export function playQuestion(
         `[set freq:${freq}]${phrase}`,
         options
       ),
-      2000
+      1000
     );
-
-    console.log('opts', options);
   }
   return state;
 }
