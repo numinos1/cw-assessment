@@ -44,6 +44,7 @@ export function sendResults(assessment: TAssessmentState) {
     vocab: options.vocab,
     words: options.words,
     characters: options.characters,
+    callsigns: options.callsigns,
     score: results.score,
     set: toQuestionSet(questions),
   };
