@@ -84,9 +84,11 @@ export function toQuestionSet(questions: TQuestion[]) {
  * Calculate Results
  **/
 export function toResults(assessment: TAssessmentState): TResults {
-  const { options, questions } = assessment;
-  const words = options.words as number;
-  const total = questions.length * words;
+  const { questions } = assessment;
+  const total = questions.reduce((count, question) =>
+    count + question.answer.split(' ').length,
+    0
+  );
   const points = questions.reduce((count, question) =>
     count + question.points,
     0
