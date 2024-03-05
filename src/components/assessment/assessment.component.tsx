@@ -82,7 +82,10 @@ export function Assessment() {
         status={state.status}
       />
 
-      {state.status !== 'config' && state.status !== 'results' && state.status !== 'countdown' && (
+      {state.status !== 'config'
+        && state.status !== 'results'
+        && state.status !== 'countdown'
+        && (
         <Phrase
           question={state.questions[state.index]}
           playIndex={state.playIndex}
@@ -104,7 +107,9 @@ export function Assessment() {
         {/* {state.status === 'guess' && (
           <Speech question={state.questions[state.index]} onGuess={onGuess} />
         )} */}
-        {(state.status === 'guess' || state.status === 'answer') && (
+        {(state.status === 'guess'
+          || state.status === 'answer')
+          && (
           <Guess
             status={state.status}
             question={state.questions[state.index]}

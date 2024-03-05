@@ -7,7 +7,7 @@ export interface TAssessmentState {
   index: number;
   tryCount: number;
   status: string;
-  playIndex: number | undefined;
+  playIndex: number;
   doneLevels: Set<string>;
 }
 

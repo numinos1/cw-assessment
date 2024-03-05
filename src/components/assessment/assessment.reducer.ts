@@ -29,7 +29,7 @@ export function initAssessment(): TAssessmentState {
       // guess
       // next -> play | results
       // results
-    playIndex: undefined,
+    playIndex:0,
     doneLevels: new Set()
   };
 }
@@ -93,7 +93,7 @@ export function startCharAction(
 ): TAssessmentState {
   return {
     ...state,
-    playIndex: event.index
+    playIndex: event.charIndex
   };
 }
 
@@ -105,7 +105,7 @@ export function endCharAction(
 ): TAssessmentState {
   return {
     ...state,
-    playIndex: undefined
+    playIndex: 0
   };
 }
 
@@ -148,8 +148,6 @@ export function setNewMode(
     [...state.doneLevels]
       .concat(state.options.mode + '')
   );
-  console.log('SETNEWMODE', doneLevels);
-
   return {
     ...state,
     id: createId(11),

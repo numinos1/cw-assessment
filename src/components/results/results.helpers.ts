@@ -31,39 +31,40 @@ export function sendResults(assessment: TAssessmentState) {
   const { options, questions } = assessment;
   const results = toResults(assessment);
 
-  const payload = {
-    callsign: options.callsign,
-    level: options.level,
-    token: options.token,
-    cpm: options.cpm,
-    eff: options.eff,
-    freq: options.freq,
-    questions: questions.length,
-    answers: options.answers,
-    infor: options.infor,
-    vocab: options.vocab,
-    words: options.words,
-    characters: options.characters,
-    callsigns: options.callsigns,
-    score: results.score,
-    set: toQuestionSet(questions),
-  };
-  const formData = new FormData();
+  if (options.callsign !== 'N0NE') {
+    const payload = {
+      callsign: options.callsign,
+      level: options.level,
+      token: options.token,
+      cpm: options.cpm,
+      eff: options.eff,
+      freq: options.freq,
+      questions: questions.length,
+      answers: options.answers,
+      infor: options.infor,
+      vocab: options.vocab,
+      words: options.words,
+      characters: options.characters,
+      callsigns: options.callsigns,
+      score: results.score,
+      set: toQuestionSet(questions),
+    };
+    const formData = new FormData();
 
-  formData.append(
-    'variable',
-    btoa(JSON.stringify(payload))
-  );
-  
-  //console.log('send payload', JSON.stringify(payload, null, '  '));
+    formData.append(
+      'variable',
+      btoa(JSON.stringify(payload))
+    );
+    
+    //console.log('send payload', JSON.stringify(payload, null, '  '));
 
-  fetch(CWOPS_URL, {
-    method: 'POST',
-    body: formData
-  })
-  .then(response => {
-    console.log('response', response);
-  });
+    fetch(CWOPS_URL, {
+      method: 'POST',
+      body: formData
+    }).then(response => {
+      console.log('response', response);
+    });
+  }
 }
 
 /**

@@ -157,15 +157,14 @@ export function playQuestion(
     // Translate CPM to WPM for the CW engine
     const options = {
       ...state.options,
+      freq: freq,
       wpm: state.options.cpm
     };
+
     // TODO - [set freq:x] is needed to fix a bug in the player.
     // The options.freq doesn't take effect on the first run.
     setTimeout(() =>
-      player.play(
-        `[set freq:${freq}]${phrase}`,
-        options
-      ),
+      player.play(phrase, options),
       1000
     );
   }

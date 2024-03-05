@@ -12,8 +12,8 @@ export function Phrase({
 }: TPhraseParams) {
   const phraseWords = question.phrase.split(' ');
   const answerWords = question.answer ? question.answer.split(' ') : [];
-  const playingIndex = playIndex != null ? playIndex - 1 : null;
-  let letterIndex = 0;
+  const playingIndex = playIndex;
+  let letterIndex = 1;
 
   const slots: TSlot[] = phraseWords.reduce((out: TSlot[], word, index) => {
     const answer = answerWords[index];

@@ -1,16 +1,17 @@
 {
   "name": "cw-assessment",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "link:dev": "vite --force",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "morse-player": "^1.0.8",
+    "morse-player": "^1.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
