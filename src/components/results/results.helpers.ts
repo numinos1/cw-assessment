@@ -61,9 +61,10 @@ export function sendResults(assessment: TAssessmentState) {
     fetch(CWOPS_URL, {
       method: 'POST',
       body: formData
-    }).then(response => {
-      console.log('response', response);
-    });
+    })
+    // .then(response => {
+    //   console.log('response', response);
+    // });
   }
 }
 
