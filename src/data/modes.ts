@@ -20,7 +20,7 @@ export const MODES: Record<string, TModeData> = {
     freq: "500,550,600,650,700",
     callsigns: '',
     questions: 5,
-    words: 2,
+    words: 1,
     minchars: 2,
     maxchars: 3,
     answers: 5,
@@ -33,7 +33,7 @@ export const MODES: Record<string, TModeData> = {
     freq: "500,550,600,650,700",
     callsigns: '4 1x3', // four 1x3 callsigns
     questions: 5,
-    words: 2,
+    words: 1,
     minchars: 2,
     maxchars: 4,
     answers: 5,
@@ -46,7 +46,7 @@ export const MODES: Record<string, TModeData> = {
     freq: "500,550,600,650,700",
     callsigns: '4 complex', // four complex callsigns
     questions: 5,
-    words: 2,
+    words: 1,
     minchars: 3,
     maxchars: 4,
     answers: 6,
@@ -59,7 +59,7 @@ export const MODES: Record<string, TModeData> = {
     freq: "500,550,600,650,700",
     callsigns: '4 complex', // four complex callsigns
     questions: 5,
-    words: 2,
+    words: 1,
     minchars: 4,
     maxchars: 5,
     answers: 7,
