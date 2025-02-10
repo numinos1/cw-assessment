@@ -9,6 +9,7 @@ export interface TModeData {
   minchars: number;
   maxchars: number;
   answers: number;
+  timeout: number;
 }
 
 export const MODES: Record<string, TModeData> = {
@@ -22,7 +23,8 @@ export const MODES: Record<string, TModeData> = {
     words: 2,
     minchars: 2,
     maxchars: 3,
-    answers: 5
+    answers: 5,
+    timeout: 30
   },
   fundamental: {
     level: 'Fundamental',
@@ -34,7 +36,8 @@ export const MODES: Record<string, TModeData> = {
     words: 2,
     minchars: 2,
     maxchars: 4,
-    answers: 5
+    answers: 5,
+    timeout: 30
   },
   intermediate: {
     level: 'Intermediate',
@@ -46,7 +49,8 @@ export const MODES: Record<string, TModeData> = {
     words: 2,
     minchars: 3,
     maxchars: 4,
-    answers: 6
+    answers: 6,
+    timeout: 30
   },
   advanced: {
     level: 'Advanced',
@@ -58,6 +62,7 @@ export const MODES: Record<string, TModeData> = {
     words: 2,
     minchars: 4,
     maxchars: 5,
-    answers: 7
+    answers: 7,
+    timeout: 30
   }
 };
