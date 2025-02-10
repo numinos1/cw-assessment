@@ -114,6 +114,7 @@ export function Assessment() {
             status={state.status}
             question={state.questions[state.index]}
             onGuess={onGuess}
+            options={state.options}
           />
         )}
         {state.status === 'answer' && (

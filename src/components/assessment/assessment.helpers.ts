@@ -18,7 +18,7 @@ export function pickQuestions(
   let questions = options.questions as number;
   const words = options.words as number;  
   const list = vocab.getRandomWords();
-  const callsigns = parseCallsigns(options.callsigns as string, questions);
+  const callsigns = parseCallsigns(options.callsigns as string);
   const pickedQuestions: string[] = [];
 
   questions -= callsigns.count;
@@ -29,10 +29,11 @@ export function pickQuestions(
   }
   // select callsigns
   for (let i = 0; i < callsigns.count; i++) {
-    pickedQuestions.push(
-      render(`[callsign min:${callsigns.min} max:${callsigns.max}]`)
-        .join('')
-    );
+    const value = callsigns.min
+      ? render(`[callsign min:${callsigns.min} max:${callsigns.max}]`)
+      : render(`[callsign vocab:${callsigns.vocabs.join(',')}]`);
+    
+    pickedQuestions.push(value.join(''));
   }
   return scrambleList(pickedQuestions);
 }
@@ -52,37 +53,83 @@ export function pickQuestion(
 
 /**
  * Parse Callsigns String
+ * 
+ * - First param must be number of callsigns {integer}
+ * - Second param can be min or formats
+ * - Third param can be max or formats
+ * - Fourth+ params can be formats
+ * 
+ * - example: "2 3 4" (callsignes from 3-4 length)
+ * - example: "2 1x3,complex,lnll" (callsigns from formats)
+ * - example: "2 3 4 complex" (callsigns from 3-4 length & from complex format)
+ * - example: "2 3 complex 1x3 2x3" (callsigns with 3 length & from formats)
  **/
 export function parseCallsigns(
-  callsigns: string,
-  questions: number
+  callsigns: string
 ) {
-  let [count = 0, min = 3, max = 6] = callsigns
-    .split(/\D+/)
-    .map(v => parseInt(v, 10))
-    .filter(v => !isNaN(v));
-  
-  if (count) {
-    if (count > questions) {
-      count = questions;
-    }
-    if (min < 3) {
-      min = 3;
-    }
-    else if (min > 6) {
-      min = 6;
-    }
-    if (max < 3) {
-      max = 3;
-    }
-    else if (max > 6) {
-      max = 6;
-    }
-    if (max < min) {
-      max = min;
+  let count = 0;
+  let min = 0;
+  let max = 0;
+  let vocabs: string[] = [];
+
+  const parts = callsigns.split(/\s+/);
+
+  // extract count (first param)
+  if (parts.length) {
+    const p1 = parts.shift() || '';
+
+    if (/^\d+$/.test(p1)) {
+      count = parseInt(p1, 10) || 0;
     }
   }
-  return { count, min, max };
+  // extract min or vocab (second param)
+  if (parts.length) {
+    const p2 = parts.shift() || '';
+
+    if (/^\d+$/.test(p2)) {
+      min = parseInt(p2, 10);
+      if (min < 3) min = 3;
+      if (min > 6) min = 6;
+    }
+    else {
+      p2.split(/[^a-zA-Z0-9_-]+/)
+        .forEach(entry =>
+          vocabs.push(entry)
+        );
+    }
+  }
+  // extract max or vocab (third param)
+  if (parts.length) {
+    const p3 = parts.shift() || '';
+
+    if (/^\d+$/.test(p3)) {
+      max = parseInt(p3, 10);
+      if (max < min) max = min;
+      if (max < 3) max = 3;
+      if (max > 6) max = 6;
+    }
+    else {
+      p3.split(/[^a-zA-Z0-9_-]+/)
+        .forEach(entry =>
+          vocabs.push(entry)
+        );
+    }
+  }
+  // extract vocab (other params)
+  if (parts.length) {
+    parts.forEach(part => {
+      part.split(/[^a-zA-Z0-9_-]+/)
+        .forEach(entry =>
+          vocabs.push(entry)
+        );
+    });
+  }
+
+  if (count) {
+    if (!vocabs.length && !min) min = 3;
+    if (!vocabs.length && !max) max = min;
+  }
+  return { count, min, max, vocabs };
 }
 
 /**

@@ -9,7 +9,7 @@ specifiers:
   eslint: ^8.45.0
   eslint-plugin-react-hooks: ^4.6.0
   eslint-plugin-react-refresh: ^0.4.3
-  morse-player: ^1.0.10
+  morse-player: ^1.0.11
   react: ^18.2.0
   react-dom: ^18.2.0
   sass: ^1.53.0
@@ -17,7 +17,7 @@ specifiers:
   vite: ^4.4.5
 
 dependencies:
-  morse-player: 1.0.10
+  morse-player: 1.0.11
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
 
@@ -1172,8 +1172,8 @@ packages:
       brace-expansion: 1.1.11
     dev: true
 
-  /morse-player/1.0.10:
-    resolution: {integrity: sha512-EKoBWMueisERsMajF0vzXe3ziiPfbGe+H2+e55NWDfImYyVpiIZpll5S88wWrTndNh0GkD8wWGxFSv7ZHuP0nQ==}
+  /morse-player/1.0.11:
+    resolution: {integrity: sha512-jDy78tRxFxcXDYza1TJjzVkemP1FNlqZFKZDwvdHJIs7fPYABDdg9dnpq7c7YPvipXlBRO9YC9ed8pyU4lrU4A==}
     dev: false
 
   /ms/2.1.2:

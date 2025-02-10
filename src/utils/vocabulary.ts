@@ -15,14 +15,16 @@ export class Vocabulary {
    **/
   constructor(
     words: string,
-    size: number
+    minSize: number,
+    maxSize: number
   ) {
     this.words = words
       .replace(/\s/g, '')
       .split(',')
       .map(word => word.toLowerCase())
       .filter(word => 
-        word.length <= size
+        word.length >= minSize
+        && word.length <= maxSize
       );
   }
   

@@ -185,7 +185,8 @@ export function startAssessment(
 ): TAssessmentState {
   const vocab = new Vocabulary(
     vocabMap.get(`${state.options.vocab}`.toLowerCase()) || threek,
-    state.options.characters as number
+    state.options.minchars as number,
+    state.options.maxchars as number
   );
 
   return playQuestion({

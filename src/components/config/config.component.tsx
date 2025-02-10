@@ -83,7 +83,7 @@ export function Config({
               <p>
                 The assessment is a series of questions and multiple-choice answers.
                 <b>You will be able to take the assessment twice. </b>
-                Each question will consist of {NUMBERS[values.words]} word{values.words === 1 ? '' : 's'} containing {NUMBERS[values.characters]} characters.
+                Each question will consist of {NUMBERS[values.words]} word{values.words === 1 ? '' : 's'} containing {NUMBERS[values.minChars]} to {NUMBERS[values.maxChars]} characters.
                 The program will send you the question in Morse code and will subsequently display {NUMBERS[values.answers]} possible answers.
                 You will then select the answer based on what you've heard. 
                 This is what it will look like:

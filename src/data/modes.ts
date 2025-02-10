@@ -3,9 +3,11 @@ export interface TModeData {
   cpm: number;
   eff: number;
   freq: string;
+  callsigns: string;
   questions: number;
   words: number;
-  characters: number;
+  minchars: number;
+  maxchars: number;
   answers: number;
 }
 
@@ -15,9 +17,11 @@ export const MODES: Record<string, TModeData> = {
     cpm: 15,
     eff: 4, // 4
     freq: "500,550,600,650,700",
+    callsigns: '',
     questions: 5,
     words: 2,
-    characters: 2,
+    minchars: 2,
+    maxchars: 3,
     answers: 5
   },
   fundamental: {
@@ -25,9 +29,11 @@ export const MODES: Record<string, TModeData> = {
     cpm: 25,
     eff: 6, // 6
     freq: "500,550,600,650,700",
+    callsigns: '4 1x3', // four 1x3 callsigns
     questions: 5,
     words: 2,
-    characters: 3,
+    minchars: 2,
+    maxchars: 4,
     answers: 5
   },
   intermediate: {
@@ -35,9 +41,11 @@ export const MODES: Record<string, TModeData> = {
     cpm: 25,
     eff: 10, // 10
     freq: "500,550,600,650,700",
+    callsigns: '4 complex', // four complex callsigns
     questions: 5,
     words: 2,
-    characters: 3,
+    minchars: 3,
+    maxchars: 4,
     answers: 6
   },
   advanced: {
@@ -45,9 +53,11 @@ export const MODES: Record<string, TModeData> = {
     cpm: 30,
     eff: 20, // 20
     freq: "500,550,600,650,700",
+    callsigns: '4 complex', // four complex callsigns
     questions: 5,
     words: 2,
-    characters: 4,
+    minchars: 4,
+    maxchars: 5,
     answers: 7
   }
 };

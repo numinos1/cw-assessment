@@ -1,6 +1,12 @@
 import { StringType, StringValues, NumberType } from "./config.validators";
 
 export const CONFIG_SCHEMA = [
+ /**
+   * callsign = "" (none)
+   * callsign = "2 3 4" (2 callsigns between 3-4 characters)
+   * callsign = "3 1x3 2x2" (3 callsigns from 1x3 or 2x2 vocab)
+   * callsign = "1 complex" (2 callsigns from complex vocab)
+   */
   {
     label: 'Callsign',
     name: 'callsign',
@@ -58,8 +64,16 @@ export const CONFIG_SCHEMA = [
     isHidden: false
   },
   {
+    label: 'Min Word Size',
+    name: 'minchars',
+    type: NumberType(2, 5),
+    value: 3,
+    error: '',
+    isHidden: false
+  },
+  {
     label: 'Max Word Size',
-    name: 'characters',
+    name: 'maxchars',
     type: NumberType(2, 5),
     value: 3,
     error: '',
@@ -70,6 +84,14 @@ export const CONFIG_SCHEMA = [
     name: 'callsigns',
     type: StringType(),
     value: '',
+    error: '',
+    isHidden: false
+  },
+  {
+    label: 'Timeout Seconds',
+    name: 'timeout',
+    type: NumberType(1, 60),
+    value: 30,
     error: '',
     isHidden: false
   },
@@ -117,7 +139,7 @@ export const CONFIG_SCHEMA = [
     label: 'Vocabulary',
     name: 'vocab',
     type: StringType(),
-    value: 'threek',
+    value: 'threek', // default
     error: '',
     isHidden: true
   }

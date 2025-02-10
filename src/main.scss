@@ -190,6 +190,20 @@ code {
   width: 400px;
   margin: 2em auto;
 
+  .question-remaining {
+    padding-top: 15px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #090;
+  }
+
+  .question-timeout {
+    padding-top: 15px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #C00;
+  }
+
   .question-answers {
     button {
       display: flex;

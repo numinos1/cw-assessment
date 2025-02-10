@@ -44,10 +44,12 @@ export function sendResults(assessment: TAssessmentState) {
       infor: options.infor,
       vocab: options.vocab,
       words: options.words,
-      characters: options.characters,
+      minchars: options.minchars,
+      maxchars: options.maxchars,
       callsigns: options.callsigns,
       score: results.score,
       set: toQuestionSet(questions),
+      timeout: options.timeout
     };
     const formData = new FormData();
 
