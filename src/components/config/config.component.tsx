@@ -64,6 +64,8 @@ export function Config({
     }
   }
 
+  console.log('VALUES', values);
+
   return (
     <div className="options-form">
       <form onSubmit={onSubmit}>
@@ -83,9 +85,9 @@ export function Config({
               <p>
                 The assessment is a series of questions and multiple-choice answers.
                 <b>You will be able to take the assessment twice. </b>
-                Each question will consist of {NUMBERS[values.words]} word{values.words === 1 ? '' : 's'} containing {NUMBERS[values.minChars]} to {NUMBERS[values.maxChars]} characters.
-                The program will send you the question in Morse code and will subsequently display {NUMBERS[values.answers]} possible answers.
-                You will then select the answer based on what you've heard. 
+                Each question will consist of <b className="sub-bold">{NUMBERS[values.words]} word{values.words === 1 ? '' : 's'}</b> containing <b className="sub-bold">{NUMBERS[values.minchars]} to {NUMBERS[values.maxchars]} characters</b>.
+                The program will send you the question in Morse code and will subsequently display <b className="sub-bold">{NUMBERS[values.answers]} possible answers</b>.
+                You will then have <b className="sub-bold">{values.timeout} seconds</b> to select the answer based on what you've heard.
                 This is what it will look like:
               </p>   
               <img src="/images/question-screenshot-3.png" className="screenshot" />

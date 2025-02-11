@@ -80,6 +80,7 @@ export function Assessment() {
     <div className="assessment">
       <Instructions 
         status={state.status}
+        answers={state.options.answers}
       />
 
       {state.status !== 'config'

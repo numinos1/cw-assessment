@@ -4,7 +4,7 @@ import { Vocabulary } from '../../utils/vocabulary';
 import { TOptionMap } from '../config/config.types';
 import { TAssessmentState } from './assessment.types';
 import { render } from 'morse-player';
-import { CALLSIGN_MAP } from '../../data/sound-map';
+import { CALLSIGN_MAP, CALLSIGN_ALPHA, CALLSIGN_NUMERIC } from '../../data/sound-map';
 
 const IS_CALLSIGN = /^[A-Z]{1,2}\d[A-Z]{1,3}$/;
 
@@ -155,6 +155,7 @@ export function pickAnswers(
     )
     answers.add(answer.join(' '));
   }
+
   return scrambleList([...answers]);
 }
 
@@ -162,11 +163,12 @@ export function pickAnswers(
  * Generate Similar Sounding Callsigns
  **/
 export function getSimilarCallsigns(callsign: string): string[] {
-  const list: string[] = [];
+  const list = new Set<string>();
   const size = callsign.length;
+  let i = 0;
 
   // replace up to three characters
-  for (let i = 0; i < 10; i++) {
+  while (i++ < 100 && list.size < 15) {
     const changes = rand(3); 
     const call = callsign.split('');
 
@@ -174,15 +176,25 @@ export function getSimilarCallsigns(callsign: string): string[] {
     for (let x = 0; x < changes; x++) {
       const pos = rand(size); 
       const char = call[pos];
-      const alts = CALLSIGN_MAP[char];
-
+      const alts = i < 50 ? CALLSIGN_MAP[char] : []; 
+    
+      // phonetic replacements
       if (alts) {
         call[pos] = randomEntry(alts);
       }
+      // alphabetic replacement
+      else if (/[a-zA-Z]/.test(char)) {
+        call[pos] = randomEntry(CALLSIGN_ALPHA);
+      }
+      // numeric replacement
+      else {
+        call[pos] = randomEntry(CALLSIGN_NUMERIC);
+      }
     }
-    list.push(call.join(''));
+    list.add(call.join(''));
   }
-  return list;
+
+  return [...list];
 }
 
 /**

@@ -1,11 +1,14 @@
 interface TInstructions {
   status: string;
+  answers: number | string;
 }
 
-export function Instructions({ status }: TInstructions) {
+const NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
+export function Instructions({ status, answers }: TInstructions) {
   return (
     <div className="instructions">
-      {showInstructions(status)}
+      {showInstructions(status, answers)}
     </div>
   );
 }
@@ -13,7 +16,11 @@ export function Instructions({ status }: TInstructions) {
 /**
  * To Instructions
  **/
-function showInstructions(status: string) {
+function showInstructions(status: string, answers: number | string) {
+  const answerCount: string = typeof answers === 'number'
+    ? NUMBERS[answers] || ''
+    : answers;
+
   switch (status) {
     case 'config':
       return '';
@@ -22,7 +29,7 @@ function showInstructions(status: string) {
     case 'play':
       return 'Listen to the morse code characters';
     case 'guess':
-      return 'Choose the correct answer from the five options';
+      return `Choose the correct answer from the ${answerCount} options`;
     case 'answer':
       return 'Continue to the next question or quit';
     case 'results':
