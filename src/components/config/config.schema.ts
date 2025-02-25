@@ -74,7 +74,7 @@ export const CONFIG_SCHEMA = [
   {
     label: 'Max Word Size',
     name: 'maxchars',
-    type: NumberType(2, 5),
+    type: NumberType(2, 6),
     value: 3,
     error: '',
     isHidden: false
