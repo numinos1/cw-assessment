@@ -1,5 +1,5 @@
 import player from '../../services/player.service';
-import { rand, randomEntry, pluckRandomEntry, scrambleList, countMap } from '../../utils/values';
+import { rand, randomEntry, scrambleList, countMap } from '../../utils/values';
 import { Vocabulary } from '../../utils/vocabulary';
 import { TOptionMap } from '../config/config.types';
 import { TAssessmentState } from './assessment.types';
@@ -142,27 +142,33 @@ export function pickAnswers(
 ): string[] {
   const answerTotal = Number(options.answers) || 5;
   const words = phrase.split(' ');
-  const answers = [phrase];
+
+  // generate the similar word sets
   const wordSets = words.map(word =>
     new Set(IS_CALLSIGN.test(word)
       ? getSimilarCallsigns(word)
       : vocab.getSimilarWords(word)
     )
   );
-  // ensure word lists don't contain the original word
-  const wordLists = wordSets.map((wordSet, index) => {
-    wordSet.delete(words[index]);
-    return Array.from(wordSet);
-  });
-  // pick random words from each list
-  for (let i = 0; answers.length < answerTotal && i < 20; ++i) {
-    answers.push(wordLists
-      .map(wordList => pluckRandomEntry(wordList, 10))
-      .join(' ')
-    );
-  }
 
-  return scrambleList(answers);
+  const wordLists = wordSets.map((wordSet, index) => {
+    const targetWord = words[index];
+
+    wordSet.delete(targetWord);
+
+    return scrambleList(
+      Array.from(wordSet)
+        .slice(0, answerTotal - 1)
+        .concat(targetWord)
+    );
+  });
+
+  const answers: string[] = [];
+
+  for (let i = 0; i < answerTotal; i++) {
+    answers.push(wordLists.map(words => words[i]).join(' '));
+  }
+  return answers;
 }
 
 /**
