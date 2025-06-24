@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { TGuessParams } from "./guess.types";
-import { TQuestion } from "../assessment/assessment.types";
 
 /**
  * Guess Component
@@ -11,19 +10,25 @@ export function Guess({
   onGuess,
   options
 }: TGuessParams) {
-  const [remaining, setRemaining] = useState(
-    typeof options.timeout === 'number'
-      ? options.timeout
-      : 0
+  const [remaining, setRemaining] = useState<number>(() =>
+    typeof options.timeout === 'number' ? options.timeout : 0
   );
+  const guessedAnswer = question.answer.split(' ').filter(Boolean);
+  const wordIndex: number = guessedAnswer.length;
 
-  function makeGuess(answer: string) {
-    onGuess(answer);
-    setRemaining(-1);
-  }
+  const answersWords: string[][] = question.answers.map(answer => answer.split(' '));
+  const answerWords: string[] = answersWords.map(answer => answer[wordIndex]);
 
+  /**
+   * Countdown Timer
+   */
   useEffect(() => {
     let handle: number = 0;
+
+    if (status !== 'guess') {
+      setRemaining(-1);
+      return;
+    }
 
     if (remaining > 0) {
       handle = setTimeout(() => {
@@ -35,23 +40,25 @@ export function Guess({
       }
     }
     else if (remaining === 0) {
-      onGuess('');
+      onGuess('<TIMEOUT>');
     }
   }, [remaining]);
 
   return (
     <div className="question">
-      <div className="question-answers">
-        {question.answers.map(answer => (
-          <button
-            key={answer}
-            onClick={() => status === 'guess' && makeGuess(answer)}
-            className={toStyle(status, question, answer)}
-          >
-            {answer}
-          </button>
-        ))}
-      </div>
+      {status === 'guess' && (
+        <div className="question-answers">
+          {answerWords.map((guessWord, index)=> (
+            <button
+              key={guessWord + index}
+              onClick={() => onGuess(guessedAnswer.concat(guessWord).join(' '))}
+              className='guess-word'
+            >
+              {guessWord}
+            </button>
+          ))}
+        </div>
+      )}
       {status === 'guess' && remaining > 0 && (
         <div className="question-remaining">
           {remaining} seconds left
@@ -64,27 +71,4 @@ export function Guess({
       )}
     </div>
   );
-}
-
-/**
- * To Style
- **/
-function toStyle(
-  status: string,
-  question: TQuestion,
-  answer: string
-) {
-  if (status === 'guess') {
-    return '';
-  }
-  if (question.answer !== answer) {
-    return 'question-ignore';
-  }
-  if (question.phrase === answer) {
-    return 'question-right';
-  }
-  if (!question.points) {
-    return 'question-wrong';
-  }
-  return 'question-half';
 }

@@ -81,6 +81,7 @@ export function Assessment() {
       <Instructions 
         status={state.status}
         answers={state.options.answers}
+        answer={state.questions[state.index]?.answer}
       />
 
       {state.status !== 'config'
@@ -88,9 +89,9 @@ export function Assessment() {
         && state.status !== 'countdown'
         && (
         <Phrase
+          status={state.status}
           question={state.questions[state.index]}
           playIndex={state.playIndex}
-          status={state.status}
         />
       )}
       {state.status === 'config' && (

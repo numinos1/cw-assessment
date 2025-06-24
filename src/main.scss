@@ -139,12 +139,18 @@ code {
       animation: 0.5s ease-in 0.1s 1 normal forwards running playletter;
     }
     &.phrase-slot-right {
+      transition: all 0.5s ease-in;
       background-color: #090;
       color: #fff;
     }
     &.phrase-slot-wrong {
+      transition: background-color 0.5s ease-in;
       background-color: #900;
       color: #fff;
+    }
+    &.phrase-slot-guess {
+      //transition: background-color 0.5s ease-in;
+      color: rgb(91, 123, 227);
     }
   }
 }

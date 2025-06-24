@@ -1,7 +1,11 @@
 import { TQuestion } from '../assessment/assessment.types';
 
 export interface TPhraseParams {
+  status: string;
   question: TQuestion;
   playIndex: number;
-  status: string;
+}
+export interface TSlot {
+  letter: string;
+  style: string;
 }

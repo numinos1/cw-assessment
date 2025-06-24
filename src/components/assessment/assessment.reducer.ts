@@ -29,7 +29,7 @@ export function initAssessment(): TAssessmentState {
       // guess
       // next -> play | results
       // results
-    playIndex:0,
+    playIndex: 0,
     doneLevels: new Set()
   };
 }
@@ -80,7 +80,7 @@ export function endPlayAction(
 ): TAssessmentState {
   return {
     ...state,
-    status: 'guess'
+    status: 'guess',
   };
 }
 
@@ -244,9 +244,14 @@ export function guessAnswerAction(
   state: TAssessmentState,
   answer: string
 ): TAssessmentState {
+  const answerWords = answer.split(' ').filter(Boolean);
+  const phraseWords = state.questions[state.index].phrase.split(' ');
+  const isDone = answerWords.length === phraseWords.length
+    || answer === '<TIMEOUT>';
+
   return {
     ...state,
-    status: 'answer',
+    status: isDone ? 'answer' : 'guess',
     questions: state.questions.map((question, i) => ({
       ...question,
       answer: i === state.index

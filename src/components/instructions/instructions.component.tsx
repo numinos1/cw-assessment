@@ -1,14 +1,16 @@
 interface TInstructions {
   status: string;
   answers: number | string;
+  answer: string;
 }
 
 const NUMBERS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+const WORDS = ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
 
-export function Instructions({ status, answers }: TInstructions) {
+export function Instructions({ status, answers, answer }: TInstructions) {
   return (
     <div className="instructions">
-      {showInstructions(status, answers)}
+      {showInstructions(status, answers, answer)}
     </div>
   );
 }
@@ -16,11 +18,7 @@ export function Instructions({ status, answers }: TInstructions) {
 /**
  * To Instructions
  **/
-function showInstructions(status: string, answers: number | string) {
-  const answerCount: string = typeof answers === 'number'
-    ? NUMBERS[answers] || ''
-    : answers;
-
+function showInstructions(status: string, answers: number | string, answer: string) {
   switch (status) {
     case 'config':
       return '';
@@ -29,7 +27,13 @@ function showInstructions(status: string, answers: number | string) {
     case 'play':
       return 'Listen to the morse code characters';
     case 'guess':
-      return `Choose the correct answer from the ${answerCount} options`;
+      const answerCount: string = typeof answers === 'number'
+        ? NUMBERS[answers] || ''
+        : answers;
+      const wordIndex = answer
+        ? answer.split(' ').filter(Boolean).length
+        : 0;
+      return `Choose the ${WORDS[wordIndex]} word from the ${answerCount} options`;
     case 'answer':
       return 'Continue to the next question or quit';
     case 'results':

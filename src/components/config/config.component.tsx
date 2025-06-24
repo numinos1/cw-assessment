@@ -64,8 +64,6 @@ export function Config({
     }
   }
 
-  console.log('VALUES', values);
-
   return (
     <div className="options-form">
       <form onSubmit={onSubmit}>

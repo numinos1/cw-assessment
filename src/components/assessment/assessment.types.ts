@@ -7,7 +7,7 @@ export interface TAssessmentState {
   index: number;
   tryCount: number;
   status: string;
-  playIndex: number;
+  playIndex: number; // Index of the letter to play
   doneLevels: Set<string>;
 }
 
@@ -21,6 +21,7 @@ export interface TQuestion {
 export type TAction =
   { type: 'on-countdown', options: any }
   | { type: 'on-start' }
+  | { type: 'on-word', word: string }
   | { type: 'on-guess', answer: any }
   | { type: 'on-repeat' }
   | { type: 'on-answer' }

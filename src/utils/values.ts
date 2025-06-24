@@ -57,6 +57,19 @@ export function randomEntry<Type>(
 }
 
 /**
+ * Randomly select one item from a list
+ **/
+export function pluckRandomEntry<Type>(
+  list: Type[], 
+  limit: number = 0
+): Type {
+  if (!limit || limit > list.length) {
+    limit = list.length;
+  }
+  return list.splice(rand(limit), 1)[0];
+}
+
+/**
  * Create a random Id
  **/
 export function createId(length: number) {

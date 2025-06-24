@@ -1,46 +1,54 @@
+import { TPhraseParams, TSlot } from "./phrase.types";
+
 /**
- * Concat the Slot Classes
- **/
-export function toSlotClass(
-  letter: string,
-  index: number,
-  playIndex: number | undefined,
-  status: string,
-  answer: string
-) {
-  const out = ['phrase-slot'];
+ * Generate Letter Slots for the Question Phrase
+ */
+export function toSlots({
+  status,
+  question,
+  playIndex
+}: TPhraseParams) {
+  const guessedWords = question.answer ? question.answer.split(' ') : [];
+  const targetWords = question.phrase.split(' ');
+  const slots: TSlot[] = [];
+  let letterIndex = 1;
 
-  if (letter === ' ') {
-    out.push('phrase-slot-space');
-  } 
-  else {
-    out.push('phrase-slot-char');
-
-    if (status === 'answer') {
-      if (answer === letter) {
-        out.push('phrase-slot-right');
-      }
-      else {
-        out.push('phrase-slot-wrong');
-      }
-    } 
-    // TODO ( -1) hack to offset for [set freq:x] prefix
-    else if (playIndex != null && index === (playIndex - 1)) {
-      out.push('phrase-slot-play');
+  targetWords.forEach((targetWord, wordIndex) => {
+    const guessedWord = question.answer === '<TIMEOUT>'
+      ? 'WRONG-WORD'
+      : guessedWords[wordIndex];
+    const style = ['phrase-slot', 'phrase-slot-char'];
+    
+    // add space before each word (except the first)
+    if (wordIndex) {
+      letterIndex++;
+      slots.push({
+        letter: '',
+        style: 'phrase-slot phrase-slot-space'
+      });
     }
-  }
-  return out.join(' ');
-}
+    // add style for the guessed word
+    if (guessedWord) {
+      style.push(guessedWord === targetWord
+        ? 'phrase-slot-right'
+        : 'phrase-slot-wrong'
+      );
+    }
+    else if (status === 'guess' && wordIndex === guessedWords.length) {
+      style.push('phrase-slot-guess');
+    }
+    // add slot for each letter of the target word
+    targetWord.split('').forEach(letter => {
+      slots.push({
+        letter: guessedWord
+          ? letter
+          : '?',
+        style: (playIndex === letterIndex++)
+          ? style.concat('phrase-slot-play').join(' ')
+          : style.join(' ')
+      });
+    });
+  });
 
-/**
- * Render the Slot Character
- **/
-export function toSlotChar(
-  letter: string,
-  status: string
-): string {
-  if (status === 'answer') {
-    return letter;
-  }
-  return (letter === ' ') ? ' ' : '?';
+  return slots;
 }
