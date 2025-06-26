@@ -10,59 +10,64 @@ export interface TModeData {
   maxchars: number;
   answers: number;
   timeout: number;
+  vocab: string;
 }
 
 export const MODES: Record<string, TModeData> = {
   beginner: {
     level: 'Beginner',
-    cpm: 15,
-    eff: 4, // 4
-    freq: "500,550,600,650,700",
+    cpm: 18,
+    eff: 6, // 4
+    freq: "450,550,600,700",
     callsigns: '',
     questions: 5,
     words: 1,
     minchars: 2,
     maxchars: 3,
     answers: 5,
-    timeout: 30
+    timeout: 30,
+    vocab: 'threek'
   },
   fundamental: {
     level: 'Fundamental',
-    cpm: 25,
+    cpm: 18,
     eff: 6, // 6
-    freq: "500,550,600,650,700",
-    callsigns: '4 1x3', // four 1x3 callsigns
+    freq: "450,550,600,700",
+    callsigns: '', //'4 1x3', // four 1x3 callsigns
     questions: 5,
     words: 1,
     minchars: 2,
-    maxchars: 4,
+    maxchars: 3,
     answers: 5,
-    timeout: 30
+    timeout: 30,
+    vocab: 'threek'
   },
   intermediate: {
     level: 'Intermediate',
     cpm: 25,
     eff: 10, // 10
-    freq: "500,550,600,650,700",
-    callsigns: '4 complex', // four complex callsigns
-    questions: 5,
-    words: 1,
+    freq: "450,550,600,700",
+    callsigns: '1 complex', //'4 complex', // four complex callsigns
+    questions: 7,
+    words: 2,
     minchars: 3,
-    maxchars: 4,
-    answers: 6,
-    timeout: 30
+    maxchars: 5,
+    answers: 5,
+    timeout: 20,
+    vocab: 'threek'
   },
   advanced: {
     level: 'Advanced',
-    cpm: 30,
-    eff: 20, // 20
-    freq: "500,550,600,650,700",
-    callsigns: '4 complex', // four complex callsigns
-    questions: 5,
-    words: 1,
-    minchars: 4,
+    cpm: 25,
+    eff: 18, // 20
+    freq: "450,550,600,700",
+    callsigns: '1 complex', // four complex callsigns
+    questions: 7,
+    words: 2,
+    minchars: 3,
     maxchars: 5,
     answers: 7,
-    timeout: 30
+    timeout: 20,
+    vocab: 'threek'
   }
 };
